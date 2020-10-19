@@ -1,0 +1,9 @@
+{
+    "name": "The Ultimate Anti-Productivity Tool",
+    "short_name": "Productivity",
+    "Version": "0.0.1",
+    "description": "CS 354 Project",
+    "manifest_version": 2,
+    "default_locale": "en",
+    "author": "Oscar Filson, Nicholas Prussen, Adam Berridge, Ali Elshafei"
+}
