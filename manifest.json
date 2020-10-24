@@ -4,7 +4,7 @@
     "description": "CS 354 Project",
     "permissions": ["activeTab", "declarativeContent", "storage"],
     "background": {
-        "scripts": ["background.js"],
+        "scripts": ["background.js", "libs/jquery-3.5.1.min.js", "insert_html.js"],
         "persistent": false
     },
     "page_action": {
@@ -22,6 +22,15 @@
         "48": "images/get_started48.png",
         "128": "images/get_started128.png"
       },
+    "content_scripts": [
+        {
+            "matches": ["https://*/*"],
+            "js": ["libs/jquery-3.5.1.min.js", "insert_html.js", "draggable-resizable-dialog.js"],
+            "css": ["draggable-resizable-dialog.css"],
+            "html": ["resizable.html"]
+        }
+    ],
+    "web_accessible_resources": ["resizable.html", "test.html"],
     "options_page": "options/options.html",
     "manifest_version": 2
 }
