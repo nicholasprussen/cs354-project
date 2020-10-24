@@ -1,5 +1,32 @@
-let page = document.getElementById('buttonDiv');
-const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
+
+
+let page = document.getElementById('site_checkboxes');
+function constructOptions(sites) {
+  for (let item of sites) {
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = item;
+    checkbox.name = item;
+    checkbox.value = item;
+
+    var label = document.createElement('label');
+    label.htmlFor = item;
+    label.appendChild(document.createTextNode(item));
+
+    var br = document.createElement('br');
+
+    checkbox.addEventListener('click', function() {
+      //add functionality to remove 'checked' websites from user view
+    });
+    page.appendChild(checkbox);
+    page.appendChild(label);
+    page.appendChild(br);
+  }
+}
+constructOptions(sites);
+
+/*
+let page = document.getElementById('darkmode_switch');
 function constructOptions(kButtonColors) {
   for (let item of kButtonColors) {
     let button = document.createElement('button');
@@ -13,3 +40,4 @@ function constructOptions(kButtonColors) {
   }
 }
 constructOptions(kButtonColors);
+*/
