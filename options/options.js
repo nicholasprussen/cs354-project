@@ -16,7 +16,7 @@ function constructOptions(sites) {
     var br = document.createElement('br');
 
     checkbox.addEventListener('click', function() {
-      //add functionality to remove 'checked' websites from user view
+      // TODO add functionality to remove 'checked' websites from user view
     });
     page.appendChild(checkbox);
     page.appendChild(label);
@@ -25,19 +25,11 @@ function constructOptions(sites) {
 }
 constructOptions(sites);
 
-/*
-let page = document.getElementById('darkmode_switch');
-function constructOptions(kButtonColors) {
-  for (let item of kButtonColors) {
-    let button = document.createElement('button');
-    button.style.backgroundColor = item;
-    button.addEventListener('click', function() {
-      chrome.storage.sync.set({color: item}, function() {
-        console.log('color is ' + item);
-      })
-    });
-    page.appendChild(button);
-  }
-}
-constructOptions(kButtonColors);
-*/
+
+let dm_checkbox = document.getElementById('darkmode');
+dm_checkbox.addEventListener('click', function() {
+  let add_script = document.getElementById('scripts');
+  var script = document.createElement('script');
+  script.src = 'darkmode.js'
+  add_script.appendChild(script);
+});
