@@ -1,9 +1,15 @@
 <html>
+    <head>
+        <script type="text/javascript" src="youtube.js">
+        </script>
+    </head>
     <body>
         <h2>YOUTUBE</h2>
-        <form action="youtube.js" onsubmit="getEmbedLink(link.value)">
-            Enter video link: <input type="text" name="link">
-            <input type="submit" value="Submit">
-          </form>
+        <form>
+            <label for="vidLink">Video Link</label><br>
+            <input type="text" name="vidLink"/>
+            <input type="button" value="submit" onclick="convertLink(vidLink.value)" />
+        </form>
+        <iframe height="200" width="300" id="ifrm"></iframe>
     </body>
 </html>
