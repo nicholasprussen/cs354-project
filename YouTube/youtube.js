@@ -1,5 +1,3 @@
-var embedLink = "";
-
 function insertIframe(){
      //Iframe that holds the embedded video
      const myIframe = '<iframe id="iframe-video-container" style="position: fixed; right: 15px; top: 130px;" width="640px" height="360p"  src="https://www.youtube.com/embed/aMlMcyO8Oag" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
@@ -53,5 +51,5 @@ function convertLink(link){
 function changeEmbededVideo(link) {
      //changingIframe = document.getElementById('iframe-video-container');
      changingIframe = document.getElementById('ifrm');
-     changingIframe.src = embedLink;
+     changingIframe.src = link;
  }
