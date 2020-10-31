@@ -14,7 +14,7 @@ function constructOptions(sites) {
 
     checkbox.addEventListener('click', function(checkbox) {
       //add functionality to remove 'checked' websites
-      const index = viewSites.indexOf(checkbox.target.id);
+      var index = viewSites.indexOf(checkbox.target.id);
       if (index > -1){
         viewSites.splice(index, 1);
         console.log(viewSites);

@@ -3,6 +3,39 @@ function getImageURL(path)
   return chrome.runtime.getURL(path);
 }
 
+// function populateButtons(sites)
+// {
+//   for (let item of sites) {
+//     var checkbox = document.createElement('input');
+//     checkbox.type = 'checkbox';
+//     checkbox.id = item;
+//     checkbox.name = item;
+//     checkbox.value = item;
+
+//     var label = document.createElement('label');
+//     label.htmlFor = item;
+//     label.appendChild(document.createTextNode(item));
+
+//     var br = document.createElement('br');
+
+//     checkbox.addEventListener('click', function(checkbox) {
+//       //add functionality to remove 'checked' websites
+//       const index = viewSites.indexOf(checkbox.target.id);
+//       if (index > -1){
+//         viewSites.splice(index, 1);
+//         console.log(viewSites);
+//       }
+//       else{
+//         viewSites.push(checkbox.target.id);
+//         console.log(viewSites);
+//       }
+//     });
+//     page.appendChild(checkbox);
+//     page.appendChild(label);
+//     page.appendChild(br);
+//   }
+// }
+
 //spotify
 var spotify = document.getElementById("spotify");
 spotify.src = chrome.runtime.getURL("images/spotify-logo.png");
