@@ -16,7 +16,14 @@ function constructOptions(sites) {
     var br = document.createElement('br');
 
     checkbox.addEventListener('click', function() {
-      // TODO add functionality to remove 'checked' websites from user view
+      //add functionality to remove 'checked' websites
+      const index = viewSites.indexOf(checkbox.name);
+      if (index > -1){
+        viewSites.splice(index, 1);
+      }
+      else{
+        viewSites.push(checkbox.name);
+      }
     });
     page.appendChild(checkbox);
     page.appendChild(label);
