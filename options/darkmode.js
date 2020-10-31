@@ -2,6 +2,7 @@
 
 //"Identifier 'dark_look' has already been declared"... on second time of checkbox
 //b/c script was already injected into html
+/*
 const dark_look = `
   .darkmode-layer {
     position: fixed;
