@@ -9,8 +9,8 @@ function populateButtons(sites)
 
     var image = document.createElement("img");
     image.src = chrome.runtime.getURL("images/" + item + "-logo.png");
-    image.style.height = "16px";
-    image.style.width = "16px";
+    image.style.height = "32px";
+    image.style.width = "32px";
 
     button.appendChild(image);
     var menu = document.getElementsByClassName("drop-content")[0];
