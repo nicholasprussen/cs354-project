@@ -52,4 +52,6 @@ function changeEmbededVideo(link) {
      //changingIframe = document.getElementById('iframe-video-container');
      changingIframe = document.getElementById('ifrm');
      changingIframe.src = link;
- }
+}
+
+console.log("clicked youtube button?");
