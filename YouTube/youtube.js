@@ -122,6 +122,11 @@ function enterInsertVideoMode() {
     document.getElementById("youtube-search-bar").style.display = "block";
 }
 
+function changeEmbededVideo(link) {
+     //changingIframe = document.getElementById('iframe-video-container');
+     changingIframe = document.getElementById('ifrm');
+     changingIframe.src = link;
+}
 
 //hide all elements on the page
 //TODO add small button to bring it back possibly in menu

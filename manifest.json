@@ -2,9 +2,9 @@
     "name": "The Ultimate Anti-Productivity Tool",
     "version": "1.0",
     "description": "CS 354 Project",
-    "permissions": ["activeTab", "declarativeContent", "storage"],
+    "permissions": ["activeTab", "declarativeContent", "storage", "tabs"],
     "background": {
-        "scripts": ["background.js", "jquery/jquery-3.5.1.min.js", "YouTube/youtube.js"],
+        "scripts": ["background.js", "libs/jquery-3.5.1.min.js", "popup/menu.js", "options/options.js"],
         "persistent": false
     },
     "page_action": {
@@ -25,11 +25,12 @@
     "content_scripts": [
         {
             "matches": ["https://developer.chrome.com/*"],
-            "js": ["jquery/jquery-3.5.1.min.js", "YouTube/youtube.js"]
+            "js": ["jquery/jquery-3.5.1.min.js", "YouTube/youtube.js", "popup/menu.js", "options/options.js"]
         }
     ],
 
     "web_accessible_resources": [
+        "sites.json",
         "images/*.png"
       ],
 
