@@ -1,3 +1,5 @@
+const { sites } = require("../sites");
+
 function constructOptions(sites) {
   for (let item of sites) {
     var checkbox = document.createElement('input');
@@ -14,14 +16,12 @@ function constructOptions(sites) {
 
     checkbox.addEventListener('click', function(checkbox) {
       //add functionality to remove 'checked' websites
-      const index = viewSites.indexOf(checkbox.target.id);
+      var index = viewSites.indexOf(checkbox.target.id);
       if (index > -1){
         viewSites.splice(index, 1);
-        console.log(viewSites);
       }
       else{
         viewSites.push(checkbox.target.id);
-        console.log(viewSites);
       }
     });
     page.appendChild(checkbox);

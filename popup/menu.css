@@ -7,9 +7,14 @@
     display:inline-block;
     text-align:center;
    }
-   .button{
+   .menu{
     padding:10px 40px;
     font-size:20px;
+   }
+   .button{
+    padding:10px 40px;
+    font-size:10px;
+    margin: 1%;
    }
    .drop-content{
     display:none ;
@@ -29,5 +34,3 @@
    .dropdown:hover .drop-content{
     display:block;
    }
-
-   

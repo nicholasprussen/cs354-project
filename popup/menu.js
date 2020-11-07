@@ -1,46 +1,26 @@
-function getImageURL(path)
+function populateButtons(sites)
 {
-  return chrome.runtime.getURL(path);
+  for(let item of sites)
+  {
+    var button = document.createElement("button");
+    button.id = item;
+    // button.innerHTML = item;
+    button.className = "button";
+
+    var image = document.createElement("img");
+    image.src = chrome.runtime.getURL("images/" + item + "-logo.png");
+    image.style.height = "16px";
+    image.style.width = "16px";
+
+    button.appendChild(image);
+    var menu = document.getElementsByClassName("drop-content")[0];
+    menu.appendChild(button);
+
+    button.addEventListener("click", function() {
+      console.log("you clicked the " + item + " button");
+    })
+  }
 }
 
-//spotify
-var spotify = document.getElementById("spotify");
-spotify.src = chrome.runtime.getURL("images/spotify-logo.png");
-spotify.style.height = "16px";
-spotify.style.width = "16px";
-
-//youtube
-var youtube = document.getElementById("youtube");
-youtube.src = chrome.runtime.getURL("images/youtube-logo.png");
-youtube.style.height = "16px";
-youtube.style.width = "16px";
-
-//twitter
-var twitter = document.getElementById("twitter");
-twitter.src = chrome.runtime.getURL("images/twitter-logo.png");
-twitter.style.height = "16px";
-twitter.style.width = "16px";
-
-//reddit
-var reddit = document.getElementById("reddit");
-reddit.src = chrome.runtime.getURL("images/reddit-logo.png");
-reddit.style.height = "16px";
-reddit.style.width = "16px";
-
-//twitch
-var twitch = document.getElementById("twitch");
-twitch.src = chrome.runtime.getURL("images/twitch-logo.png");
-twitch.style.height = "16px";
-twitch.style.width = "16px";
-
-//google news
-var googlenews = document.getElementById("googlenews");
-googlenews.src = chrome.runtime.getURL("images/googlenews-logo.png");
-googlenews.style.height = "16px";
-googlenews.style.width = "16px";
-
-//tiktok
-var tiktok = document.getElementById("tiktok");
-tiktok.src = chrome.runtime.getURL("images/tiktok-logo.png");
-tiktok.style.height = "16px";
-tiktok.style.width = "16px";
+populateButtons(['googlenews', 'tiktok', 'twitch', 'reddit', 'youtube', 'spotify']);
+// name = ['googlenews', 'tiktok', 'twitch', 'reddit', 'youtube', 'spotify', 'twitter'];
