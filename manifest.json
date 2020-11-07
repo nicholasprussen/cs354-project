@@ -25,7 +25,8 @@
     "content_scripts": [
         {
             "matches": ["https://developer.chrome.com/*"],
-            "js": ["jquery/jquery-3.5.1.min.js", "YouTube/youtube.js", "popup/menu.js", "options/options.js", "jquery/jquery-ui.js"]
+            "js": ["jquery/jquery-3.5.1.min.js", "popup/menu.js", "options/options.js", "jquery/jquery-ui.js"],
+            "css": ["jquery/jquery-ui.css"]
         }
     ],
 

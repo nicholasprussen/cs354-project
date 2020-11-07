@@ -24,7 +24,7 @@ function populateButtons(sites)
 
     button.addEventListener("click", function() {
       chrome.tabs.executeScript({
-        file: 'Youtube/' + sitesArray[item] + '.js'
+        file: sitesArray[item] + '/' + sitesArray[item] + '.js'
       });
     })
   }
