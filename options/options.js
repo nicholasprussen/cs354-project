@@ -1,43 +1,40 @@
-const { sites } = require("../sites");
-
-function constructOptions(sites) {
-  for (let item of sites) {
+function constructOptions(sites)
+{
+  var sitesArray = sites["sites"];
+  for(let item in sitesArray)
+  {
     var checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
-    checkbox.id = item;
-    checkbox.name = item;
-    checkbox.value = item;
+    checkbox.id = sitesArray[item].value;
+    checkbox.name = sitesArray[item].value;
+    checkbox.value = sitesArray[item].value;
 
     var label = document.createElement('label');
-    label.htmlFor = item;
-    label.appendChild(document.createTextNode(item));
+    label.htmlFor = sitesArray[item].value;
+    label.appendChild(document.createTextNode(sitesArray[item].name));
 
     var br = document.createElement('br');
 
     checkbox.addEventListener('click', function(checkbox) {
       //add functionality to remove 'checked' websites
-      var index = viewSites.indexOf(checkbox.target.id);
-      if (index > -1){
-        viewSites.splice(index, 1);
+      if(sitesArray[item].hidden == 0){
+        sitesArray[item].hidden = 1;
+      } else {
+      sitesArray[item].hidden = 0;
       }
-      else{
-        viewSites.push(checkbox.target.id);
-      }
+      //console.log(sitesArray);
     });
-    page.appendChild(checkbox);
-    page.appendChild(label);
-    page.appendChild(br);
+    try {
+      page = document.getElementById('site_checkboxes');
+      page.appendChild(checkbox);
+      page.appendChild(label);
+      page.appendChild(br);
+    } catch (error) {
+      console.log("extension not yet loaded.");
+    }
   }
 }
 
-let page = document.getElementById('site_checkboxes');
-constructOptions(sites);
-
-
-let dm_checkbox = document.getElementById('darkmode');
-dm_checkbox.addEventListener('click', function() {
-  let add_script = document.getElementById('scripts');
-  var script = document.createElement('script');
-  script.src = 'darkmode.js'
-  add_script.appendChild(script);
-});
+fetch(chrome.runtime.getURL("sites.json"))
+  .then((response) => response.json())
+  .then((json) => constructOptions(json));
