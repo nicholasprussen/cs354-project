@@ -1,4 +1,6 @@
-function constructOptions(sites)
+var sites = [];
+
+function constructOptions()
 {
   var sitesArray = sites["sites"];
   for(let item in sitesArray)
@@ -35,5 +37,5 @@ function constructOptions(sites)
 }
 
 fetch(chrome.runtime.getURL("sites.json"))
-  .then((response) => response.json())
-  .then((json) => constructOptions(json));
+  .then((response) => {response.json(); sites = response.json()})
+  .then((json) => constructOptions());

@@ -32,7 +32,3 @@ function populateButtons(sites)
     }
   }
 }
-
-fetch(chrome.runtime.getURL("sites.json"))
-  .then((response) => response.json())
-  .then((json) => populateButtons(json));
