@@ -4,7 +4,7 @@
     "description": "CS 354 Project",
     "permissions": ["activeTab", "declarativeContent", "storage", "tabs"],
     "background": {
-        "scripts": ["background.js", "jquery/jquery-3.5.1.min.js", "popup/menu.js", "options/options.js", "jquery/jquery-ui.js"],
+        "scripts": ["jquery/jquery-3.5.1.min.js", "popup/menu.js", "options/options.js", "jquery/jquery-ui.js"],
         "persistent": false
     },
     "page_action": {
