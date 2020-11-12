@@ -1,8 +1,9 @@
-var sites = [];
-
-function constructOptions()
+function constructOptions(sites)
 {
   var sitesArray = sites["sites"];
+  chrome.storage.sync.set({"sites": sitesArray}, function() {
+    console.log(sitesArray);
+  });
   for(let item in sitesArray)
   {
     var checkbox = document.createElement('input');
@@ -19,11 +20,32 @@ function constructOptions()
 
     checkbox.addEventListener('click', function(checkbox) {
       //add functionality to remove 'checked' websites
-      if(sitesArray[item].hidden == 0){
-        sitesArray[item].hidden = 1;
-      } else {
-      sitesArray[item].hidden = 0;
-      }
+      storArray = [];
+      found = false;
+      index = 0;
+      chrome.storage.sync.get("sites", function(val) {
+        console.log(val["sites"]);
+        storArray = val["sites"];
+        for(let site in storArray){
+          if(storArray[site].value == sitesArray[item].value){
+            found = true;
+          }
+          if(!found){
+            index++;
+          }
+        }
+        if(found){
+          storArray.splice(index, 1);
+          chrome.storage.sync.set({"sites": storArray}, function() {
+            console.log(storArray);
+          })
+        } else {
+          storArray.push(sitesArray[item].value);
+          chrome.storage.sync.set({"sites": storArray}, function() {
+            console.log(storArray);
+          })
+        }
+      })
     });
     try {
       page = document.getElementById('site_checkboxes');
@@ -37,5 +59,5 @@ function constructOptions()
 }
 
 fetch(chrome.runtime.getURL("sites.json"))
-  .then((response) => {response.json(); sites = response.json()})
-  .then((json) => constructOptions());
+  .then((response) => response.json())
+  .then((json) => constructOptions(json));
