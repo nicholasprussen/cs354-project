@@ -6,8 +6,14 @@ function constructOptions(sites) {
     //Get new list
     chrome.storage.sync.get("sites", function(obj) {
 
-        // Iterate through list
-        sitesArray = obj["sites"];
+        // Check if sites has been set in storage
+        if(obj["sites"] == null) {
+            console.log("storage not in place yet");
+        } else {
+            sitesArray = obj["sites"];
+        }
+
+        //Iterate through list
         for(let site in sitesArray) {
 
             // Create HTML element for site
@@ -34,9 +40,9 @@ function constructOptions(sites) {
                 page.appendChild(checkbox);
                 page.appendChild(label);
                 page.appendChild(br);
-              } catch (error) {
+            } catch (error) {
                 console.log("extension not yet loaded.");
-              }
+            }
         }
     });
 }

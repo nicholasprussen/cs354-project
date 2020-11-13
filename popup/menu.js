@@ -4,7 +4,13 @@ function populateButtons(sites) {
 
     // Get updated values from storage if they exist
     chrome.storage.sync.get("sites", function(obj) {
-        sitesArray = obj["sites"];
+
+        // Check if sites has been set in storage
+        if(obj["sites"] == null) {
+            console.log("storage not in place yet");
+        } else {
+            sitesArray = obj["sites"];
+        }
 
         //Iterate through every site (even hidden) in stored SitesArray
         for(let site in sitesArray){
@@ -24,13 +30,21 @@ function populateButtons(sites) {
                 image.style.width = "32px";
                 button.appendChild(image);
 
-                //Check to make sure we are running at right time
+                //Add Click functionality
+                button.addEventListener("click", function() {
+                    chrome.tabs.executeScript({
+                        file: sitesArray[site].value + '/' + sitesArray[site].value + ".js"
+                    });
+                });
+
+                //Add to page if we are running at the right time.
                 try {
                     var menu = document.getElementById("drop-content");
                     menu.appendChild(button);
                 } catch (error) {
                     console.log("extension not yet loaded.");
                 }
+
             } else {
                 console.log(sitesArray[site].name, " hidden from menu");
             }
