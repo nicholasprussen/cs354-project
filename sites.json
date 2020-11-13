@@ -1,10 +1,10 @@
 {
     "sites": [
-        { "value": "googlenews", "name": "Google News" },
-        { "value": "reddit", "name": "Reddit"},
-        { "value": "spotify", "name": "Spotify"},
-        { "value": "twitter", "name": "Twitter"},
-        { "value": "twitch", "name": "Twitch"},
-        { "value": "youtube", "name": "YouTube"}
+        { "value": "googlenews", "name": "Google News", "hidden": false},
+        { "value": "reddit", "name": "Reddit", "hidden": false},
+        { "value": "spotify", "name": "Spotify", "hidden": false},
+        { "value": "twitter", "name": "Twitter", "hidden": false},
+        { "value": "twitch", "name": "Twitch", "hidden": false},
+        { "value": "youtube", "name": "YouTube", "hidden": false}
     ]
 }
