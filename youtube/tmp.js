@@ -10,19 +10,22 @@ var iFrameDiv = document.createElement("div");
 iFrameDiv.id = "iframe-object";
 
 //Iframe that holds the embedded video
-var myIframe = '<iframe id="iframe-video-container" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+var myIframe = '<iframe id="iframe-video-container" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
 iFrameDiv.innerHTML = myIframe;
 
 //create the menu and append to main div
 var iframeMenu = document.createElement('div');
 iframeMenu.id = "iframe-menu";
 iframeMenu.innerHTML =
-                            '<form>' +
-                                '<input id="vidLink-value" type="text" name="vidLink" />' +
-                                '<input id="submitLink" type="button" value="search" />' +
-                                // '<input style="float: left" id="goBackButton" type="button" value="Go Back" />' +
-                            '</form>';
-
+                        '<div id="youtube-search-bar">' +
+                            '<div id="form-container">' +
+                                '<form">' +
+                                    '<input id="vidLink-value" type="text" name="vidLink" />' +
+                                    '<input id="submitLink" type="button" value="search" /><br>' +
+                                    // '<input style="float: left" id="goBackButton" type="button" value="Go Back" />' +
+                                '</form>' +
+                            '</div>' +
+                        '</div>';
                         //This is the old social menu, keeping it just in case
                         // '<div id="social-menu" style="text-align: center; position: relative; width:100%; height:100%; background: #000000;">' +
                         //     '<button id="news" style="width:25%; height: 100%; background-color: green; border-right: none; display: inline-block;">News</button>' +
@@ -33,10 +36,14 @@ iframeMenu.innerHTML =
 
 //container for hide elements buttons
 var hideIframe = document.createElement('div');
-hideIframe.id = "button-container";
-hideIframe.innerHTML =
-                          '<button id="hide-everything-button"> Hide Everything </button> ' +
-                          '<button id="hide-content-button"> Stop Video </button> ';
+hideIframe.id = "hideIframeButton";
+hideIframe.style.height = "50%";
+hideIframe.innerHTML = '<div id="hide-content" class="row">' +
+                            '<div id="everything-button-container" class="column">' +
+                                '<button id="hide-everything-button"> Hide Everything </button> </div>' +
+                            '<div id="content-button-container" class="column" style="height: 100%; width:50%; float: left; display: none; ">' +
+                                '<button id="hide-content-button" style="width: 100%; height: 100%; background: grey;"> Stop Video </button> </div>' +
+                       '</div>';
 
 //append menu and hide buttons to div
 div.prepend(iframeMenu);
@@ -69,110 +76,7 @@ $("body").append(draggableDiv);
 document.getElementsByTagName("body")[0].style.height = "100%";
 document.getElementsByTagName("html")[0].style.height = "100%";
 
-//add event listeners to all the buttons embedded
-document.getElementById("hide-content-button").addEventListener("click", hideContent);
-document.getElementById("hide-everything-button").addEventListener("click", hideEverything);
-document.getElementById("submitLink").addEventListener("click", submitNewYoutubeLink);
 
-//////////////////////////////////////////
-//CSS Styling
-//////////////////////////////////////////
-var head = document.head || document.getElementsByTagName('head')[0];
-var style = document.createElement('style');
-
-style.type = 'text/css';
-
-// create CSS as a string
-var css = `
-  #extension-container {
-    z-index: 2147483647;
-    position: relative;
-    width: 100%;
-    height: 90%;
-  }
-  /*without this, can't change the size of the iframe dynamically*/
-  #iframe-object {
-    height: 85%;
-    width: 100%;
-    display: none;
-  }
-  #iframe-video-container {
-    position: relative;
-    display: none;
-    width: 100%;
-    height: 100%;
-  }
-  #iframe-menu {
-    background: rgba(0, 0, 0, 0.75);
-    height: 50%;
-    width: 100%;
-  }
-  #form {
-    height: 100%;
-    width: 100%;
-  }
-  #vidLink-value {
-     height: 24px;
-     width: 60%;
-     border: 1px solid black;
-     margin-top: 5px;
-     margin-left: 5px;
-   }
-   #submitLink {
-      margin-top: 5px;
-      background-color: black;
-      color: #FFFAFA;
-      margin-left: 10px;
-      padding: 4px 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-   }
-   #button-container {
-     position: relative;
-     height:10%;
-     margin-top: 0%;
-     background: rgba(0, 0, 0, 0.75);
-   }
-   #button-container {
-     position: relative;
-     background: rgba(0, 0, 0, 0.75);
-     width:100%;
-     height:30%;
-   }
-   #hide-everything-button {
-     margin-left: 3%;
-     padding: 4px 16px;
-     background: black;
-     color: #FFFAFA;
-     border: none;
-     border-radius: 6px;
-     cursor: pointer;
-   }
-   #hide-content-button {
-     margin-left: 3%;
-     padding: 4px 16px;
-     background: black;
-     color: #FFFAFA;
-     border: none;
-     border-radius: 6px;
-     cursor: pointer;
-     display: none;
-   }
-   `;
-
-// IE8 and below.
-if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-} else {
-    style.appendChild(document.createTextNode(css));
-}
-// add it to the head
-head.appendChild(style);
-
-//////////////////////////////////////////
-//Functions
-//////////////////////////////////////////
 
 //functions for adding draggability and resizability to the div
 $(function() {
@@ -201,12 +105,6 @@ $(function (){
 document.getElementById("hide-content-button").addEventListener("click", hideContent);
 document.getElementById("hide-everything-button").addEventListener("click", hideEverything);
 document.getElementById("submitLink").addEventListener("click", submitNewYoutubeLink);
-document.getElementById("vidLink-value").addEventListener("keyup", function(event){
-    event.preventDefault();
-    if(event.key === "Enter"){
-        document.getElementById("submitLink").click();
-    }
-});
 
 //////////////////////////////////////////
 //Functions
@@ -235,22 +133,19 @@ function submitNewYoutubeLink() {
     //unhide iframe
     document.getElementById("iframe-video-container").style.display = "block";
 
-    //move buttonicontainer down and make content button visible
-    document.getElementById("button-container").style.height = "10%";
-    document.getElementById("hide-everything-button").style.margin = "1%";
-    document.getElementById("hide-content-button").style.display = "inline";
+    //move hide content button down
+    document.getElementById("everything-button-container").style.width = "50%";
+    document.getElementById("content-button-container").style.display = "block";
 
     //extend the draggable box
     document.getElementById("draggable-container").style.height = "480px";
     document.getElementById("draggable-container").style.width = "640px";
 
     //resize everyone's height
+    document.getElementById("extension-container").style.top = "5%";
     document.getElementById("iframe-menu").style.height = "10%";
-    document.getElementById("button-container").style.height = "10%";
+    document.getElementById("hideIframeButton").style.height = "10%";
     document.getElementById("iframe-object").style.display = "block";
-
-    //clear text field
-    document.getElementById("vidLink-value").value = "";
 
 
     //turn on resizing
@@ -264,24 +159,29 @@ function hideEverything() {
     document.getElementById("draggable-container").remove();
 }
 
+
 //on click of hide content, hide youtube video
 function hideContent(){
+
     //hide youtube iframe
     document.getElementById("iframe-video-container").style.display = "none";
-    document.getElementById("hide-content-button").style.display = "none";
+
+    //move buttons back up and hide content button
+    document.getElementById("everything-button-container").style.width = "100%";
+    document.getElementById("content-button-container").style.display = "none";
 
     //remove src to stop video playback
     document.getElementById("iframe-video-container").src = "";
 
     //shrink draggable back down
     document.getElementById("draggable-container").style.height = "125px";
-    document.getElementById("draggable-container").style.width = "640px";
 
     //resize everyone's dimensions
+    document.getElementById("extension-container").style.top = "10%";
     document.getElementById("iframe-menu").style.height = "50%";
+    document.getElementById("hideIframeButton").style.height = "50%";
     document.getElementById("iframe-object").style.display = "none";
-    document.getElementById("button-container").style.height = "50%";
-    document.getElementById("hide-everything-button").style.margin = "0% 1% 0% 0%";
+    document.getElementById("draggable-container").style.width = "640px";
 
     //remove resizability
     $(function (){
@@ -289,7 +189,92 @@ function hideContent(){
     });
 }
 
+// get the head and create a style element
+var head = document.head || document.getElementsByTagName('head')[0];
+var style = document.createElement('style');
 
+style.type = 'text/css';
+
+// create CSS as a string
+var css = `
+  #extension-container {
+    z-index: 2147483647;
+    position: relative;
+    top:10%;
+    width: 100%;
+    height: 90%;";
+  }
+  /*without this, can't change the size of the iframe dynamically*/
+  #iframe-object {
+    height = 85%;
+    width = 100%;
+    display = none;
+  }
+  #iframe-video-container {
+    position: relative;
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+  #iframe-menu {
+    height = 50%;
+  }
+  #youtube-search-bar {
+     background: rgba(0, 0, 0, 0.5);
+     display: block;
+     width: 100%;
+     height: 100%;
+   }
+   #form-container {
+     padding-left: 10px;
+     height: 100%;
+     width: 100%;
+   }
+   #vidLink-value {
+     float: left;
+     height: 24px;
+     width: 60%;
+   }
+   #submitLink {
+      float: left;
+      background-color: black;
+      color: #FFFAFA;
+      margin-left: 10px;
+      padding: 4px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+   }
+   #hide-content{
+     position: relative;
+     background: rgba(0, 0, 0, 0.5);
+   }
+   #everything-button-container {
+     height: 100%;
+     width:100%;
+     float: left;
+   }
+   #hide-everything-button {
+     margin-left: 3%;
+     padding: 4px 16px;
+     background: black;
+     color: #FFFAFA;
+     border: none;
+     border-radius: 6px;
+     cursor: pointer;
+   }
+   #
+   `;
+
+// IE8 and below.
+if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+} else {
+    style.appendChild(document.createTextNode(css));
+}
+
+// add it to the head
+head.appendChild(style);
 
 //THESE MAY NO LONGER BE NEEDED
 
