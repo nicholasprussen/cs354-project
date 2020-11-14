@@ -136,11 +136,12 @@ function submitNewTwitchLink() {
     // document.getElementById("iframe-video-container").src = embedLink;
 
     //attempt to take a twitch link and getting the appropriate embed link
+    var domain = document.domain;
     var inputText = document.getElementById("channelLink-value").value;
-    pos = inputText.indexOf("twitch.tv") + 9;
+    pos = inputText.indexOf("twitch.tv/") + 10;
     id = inputText.substr(pos, inputText.length-1);
-    // var embedLink = "https://www.youtube.com/embed/" + id;
-    document.getElementById("https://player.twitch.tv/?channel=gamesdonequick&parent=developer.chrome.com").src = embedLink;
+    var embedLink = "https://player.twitch.tv/?channel=" + id + "?parent=" + domain;
+    document.getElementById("iframe-video-container").src = embedLink;
 
     //unhide iframe
     document.getElementById("iframe-video-container").style.display = "block";
