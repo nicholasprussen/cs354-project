@@ -127,15 +127,7 @@ function createContainerDiv() {
 //on submission click, get new embed link and display iframe
 function submitNewTwitchLink() {
 
-    //Oscars code for taking youtube link and getting embed link
-
-    //var inputText = document.getElementById("vidLink-value").value;
-    // pos = inputText.indexOf("watch?v=") + 8;
-    // id = inputText.substr(pos, inputText.length-1);
-    // var embedLink = "https://www.youtube.com/embed/" + id;
-    // document.getElementById("iframe-video-container").src = embedLink;
-
-    //attempt to take a twitch link and getting the appropriate embed link
+    //take a twitch link and getting the appropriate embed link
     var domain = document.domain;
     var inputText = document.getElementById("channelLink-value").value;
     pos = inputText.indexOf("twitch.tv/") + 10;
