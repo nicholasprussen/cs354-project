@@ -4,7 +4,7 @@
         { "value": "reddit", "name": "Reddit", "hidden": true},
         { "value": "spotify", "name": "Spotify", "hidden": true},
         { "value": "twitter", "name": "Twitter", "hidden": true},
-        { "value": "twitch", "name": "Twitch", "hidden": true},
+        { "value": "twitch", "name": "Twitch", "hidden": false},
         { "value": "youtube", "name": "YouTube", "hidden": false}
     ]
 }
