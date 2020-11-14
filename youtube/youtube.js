@@ -17,7 +17,7 @@ iFrameDiv.innerHTML = myIframe;
 var iframeMenu = document.createElement('div');
 iframeMenu.id = "iframe-menu";
 iframeMenu.innerHTML =
-                            '<form>' +
+                            '<form onSubmit="return false;">' +
                                 '<input id="vidLink-value" type="text" name="vidLink" />' +
                                 '<input id="submitLink" type="button" value="search" />' +
                                 // '<input style="float: left" id="goBackButton" type="button" value="Go Back" />' +
@@ -69,11 +69,6 @@ $("body").append(draggableDiv);
 document.getElementsByTagName("body")[0].style.height = "100%";
 document.getElementsByTagName("html")[0].style.height = "100%";
 
-//add event listeners to all the buttons embedded
-document.getElementById("hide-content-button").addEventListener("click", hideContent);
-document.getElementById("hide-everything-button").addEventListener("click", hideEverything);
-document.getElementById("submitLink").addEventListener("click", submitNewYoutubeLink);
-
 //////////////////////////////////////////
 //CSS Styling
 //////////////////////////////////////////
@@ -88,11 +83,11 @@ var css = `
     z-index: 2147483647;
     position: relative;
     width: 100%;
-    height: 90%;
+    height: 100%;
   }
   /*without this, can't change the size of the iframe dynamically*/
   #iframe-object {
-    height: 85%;
+    height: 75%;
     width: 100%;
     display: none;
   }
@@ -130,15 +125,10 @@ var css = `
    }
    #button-container {
      position: relative;
-     height:10%;
+     height:50%;
+     width:100%;
      margin-top: 0%;
      background: rgba(0, 0, 0, 0.75);
-   }
-   #button-container {
-     position: relative;
-     background: rgba(0, 0, 0, 0.75);
-     width:100%;
-     height:30%;
    }
    #hide-everything-button {
      margin-left: 3%;
@@ -235,8 +225,8 @@ function submitNewYoutubeLink() {
     //unhide iframe
     document.getElementById("iframe-video-container").style.display = "block";
 
-    //move buttonicontainer down and make content button visible
-    document.getElementById("button-container").style.height = "10%";
+    //move button container down and make content button visible
+    document.getElementById("button-container").style.height = "12.5%";
     document.getElementById("hide-everything-button").style.margin = "1%";
     document.getElementById("hide-content-button").style.display = "inline";
 
@@ -245,8 +235,7 @@ function submitNewYoutubeLink() {
     document.getElementById("draggable-container").style.width = "640px";
 
     //resize everyone's height
-    document.getElementById("iframe-menu").style.height = "10%";
-    document.getElementById("button-container").style.height = "10%";
+    document.getElementById("iframe-menu").style.height = "12.5%";
     document.getElementById("iframe-object").style.display = "block";
 
     //clear text field
