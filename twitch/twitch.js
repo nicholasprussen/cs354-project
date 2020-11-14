@@ -96,9 +96,10 @@ $(function (){
 document.getElementById('youtube-add-link').addEventListener("click", enterInsertVideoMode);
 document.getElementById("hide-content-button").addEventListener("click", hideContent);
 document.getElementById("hide-everything-button").addEventListener("click", hideEverything);
-document.getElementById("submitLink").addEventListener("click", submitNewYoutubeLink);
+//document.getElementById("submitLink").addEventListener("click", submitNewYoutubeLink);
 document.getElementById("goBackButton").addEventListener("click", goBackFromYoutube);
 
+document.getElementById("submitLink").addEventListener("click", submitNewTwitchLink);
 
 
 //////////////////////////////////////////
