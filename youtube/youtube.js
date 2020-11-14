@@ -114,6 +114,12 @@ $(function (){
 document.getElementById("hide-content-button").addEventListener("click", hideContent);
 document.getElementById("hide-everything-button").addEventListener("click", hideEverything);
 document.getElementById("submitLink").addEventListener("click", submitNewYoutubeLink);
+document.getElementById("vidLink-value").addEventListener("keyup", function(event){
+    event.preventDefault();
+    if(event.key === "Enter"){
+        document.getElementById("submitLink").click();
+    }
+});
 
 //////////////////////////////////////////
 //Functions
@@ -159,6 +165,9 @@ function submitNewYoutubeLink() {
     document.getElementById("iframe-menu").style.height = "10%";
     document.getElementById("hideIframeButton").style.height = "10%";
     document.getElementById("iframe-object").style.display = "block";
+
+    //clear text field
+    document.getElementById("vidLink-value").value = "";
 
 
     //turn on resizing
