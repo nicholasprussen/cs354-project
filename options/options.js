@@ -1,43 +1,52 @@
-const { sites } = require("../sites");
-
 function constructOptions(sites) {
-  for (let item of sites) {
-    var checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.id = item;
-    checkbox.name = item;
-    checkbox.value = item;
 
-    var label = document.createElement('label');
-    label.htmlFor = item;
-    label.appendChild(document.createTextNode(item));
+    //Set initial options to sites.json
+    var sitesArray = sites["sites"];
 
-    var br = document.createElement('br');
+    //Get new list
+    chrome.storage.sync.get("sites", function(obj) {
 
-    checkbox.addEventListener('click', function(checkbox) {
-      //add functionality to remove 'checked' websites
-      var index = viewSites.indexOf(checkbox.target.id);
-      if (index > -1){
-        viewSites.splice(index, 1);
-      }
-      else{
-        viewSites.push(checkbox.target.id);
-      }
+        // Check if sites has been set in storage
+        if(obj["sites"] == null) {
+            console.log("storage not in place yet");
+        } else {
+            sitesArray = obj["sites"];
+        }
+
+        //Iterate through list
+        for(let site in sitesArray) {
+
+            // Create HTML element for site
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = sitesArray[site].value;
+            checkbox.name = sitesArray[site].value;
+            checkbox.value = sitesArray[site].value;
+            checkbox.checked = sitesArray[site].hidden;
+            var label = document.createElement('label');
+            label.htmlFor = sitesArray[site].value;
+            label.appendChild(document.createTextNode(sitesArray[site].name));
+            var br = document.createElement('br');
+
+            // Add click functionality
+            checkbox.addEventListener('click', function() {
+                sitesArray[site].hidden = !sitesArray[site].hidden;
+                chrome.storage.sync.set({"sites": sitesArray}, function() {
+                    console.log("Settings saved", sitesArray);
+                });
+            });
+            try {
+                page = document.getElementById('site_checkboxes');
+                page.appendChild(checkbox);
+                page.appendChild(label);
+                page.appendChild(br);
+            } catch (error) {
+                console.log("extension not yet loaded.");
+            }
+        }
     });
-    page.appendChild(checkbox);
-    page.appendChild(label);
-    page.appendChild(br);
-  }
 }
 
-let page = document.getElementById('site_checkboxes');
-constructOptions(sites);
-
-
-let dm_checkbox = document.getElementById('darkmode');
-dm_checkbox.addEventListener('click', function() {
-  let add_script = document.getElementById('scripts');
-  var script = document.createElement('script');
-  script.src = 'darkmode.js'
-  add_script.appendChild(script);
-});
+fetch(chrome.runtime.getURL("sites.json"))
+  .then((response) => response.json())
+  .then((json) => constructOptions(json));
