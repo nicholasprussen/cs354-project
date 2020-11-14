@@ -1,3 +1,10 @@
 {
-    "sites": ["googlenews", "tiktok", "twitch", "reddit", "youtube", "spotify"]
+    "sites": [
+        { "value": "googlenews", "name": "Google News", "hidden": true},
+        { "value": "reddit", "name": "Reddit", "hidden": true},
+        { "value": "spotify", "name": "Spotify", "hidden": true},
+        { "value": "twitter", "name": "Twitter", "hidden": true},
+        { "value": "twitch", "name": "Twitch", "hidden": true},
+        { "value": "youtube", "name": "YouTube", "hidden": false}
+    ]
 }
