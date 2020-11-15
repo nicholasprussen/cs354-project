@@ -58,7 +58,14 @@ function submitNewtwitchLink() {
   var domain = document.domain;
   var inputText = document.getElementById("vidLink-value").value;
   var embedLink = "https://player.twitch.tv/?channel=" + inputText + "&parent=" + domain;
-  document.getElementById("twitch-iframe-video-container").src = embedLink;
+
+  //this copies the iframe and rebuilds instead of setting source
+  var original = document.getElementById("twitch-iframe-video-container");
+  var newiframe = document.createElement("iframe");
+  newiframe.id = "twitch-iframe-video-container";
+  newiframe.src = embedLink;
+  var parent = original.parentElement;
+  parent.replaceChild(newiframe, original);
 
   //unhide iframe
   document.getElementById("twitch-iframe-video-container").style.display = "block";

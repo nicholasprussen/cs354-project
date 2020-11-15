@@ -59,7 +59,14 @@ function submitNewYoutubeLink() {
     pos = inputText.indexOf("watch?v=") + 8;
     id = inputText.substr(pos, inputText.length-1);
     var embedLink = "https://www.youtube.com/embed/" + id;
-    document.getElementById("youtube-iframe-video-container").src = embedLink;
+
+    //this copies the iframe and rebuilds instead of setting source
+    var original = document.getElementById("youtube-iframe-video-container");
+    var newiframe = document.createElement("iframe");
+    newiframe.id = "youtube-iframe-video-container";
+    newiframe.src = embedLink;
+    var parent = original.parentElement;
+    parent.replaceChild(newiframe, original);
 
     //unhide iframe
     document.getElementById("youtube-iframe-video-container").style.display = "block";
