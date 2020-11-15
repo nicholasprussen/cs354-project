@@ -35,13 +35,13 @@ $(function (){
 
 //add event listeners to all the buttons embedded
 setTimeout(function (){
-    document.getElementById("hide-content-button").addEventListener("click", hideContent);
-    document.getElementById("hide-everything-button").addEventListener("click", hideEverything);
-    document.getElementById("submitLink").addEventListener("click", submitNewYoutubeLink);
-    document.getElementById("vidLink-value").addEventListener("keyup", function(event){
+    document.getElementById("youtube-hide-content").addEventListener("click", hideContentYoutube);
+    document.getElementById("hide-everything-youtube").addEventListener("click", hideEverythingYoutube);
+    document.getElementById("submit-link-youtube").addEventListener("click", submitNewYoutubeLink);
+    document.getElementById("youtubeSubmission").addEventListener("keyup", function(event){
         event.preventDefault();
         if(event.key === "Enter"){
-            document.getElementById("submitLink").click();
+            document.getElementById("submit-link-youtube").click();
         }
     });
 }, 1000);
@@ -55,7 +55,7 @@ setTimeout(function (){
 function submitNewYoutubeLink() {
 
     //Oscars code for taking youtube link and getting embed link
-    var inputText = document.getElementById("vidLink-value").value;
+    var inputText = document.getElementById("youtubeSubmission").value;
     pos = inputText.indexOf("watch?v=") + 8;
     id = inputText.substr(pos, inputText.length-1);
     var embedLink = "https://www.youtube.com/embed/" + id;
@@ -83,10 +83,10 @@ function submitNewYoutubeLink() {
     document.getElementById("youtube-iframe-container").style.display = "block";
 
     //clear text field
-    document.getElementById("vidLink-value").value = "";
+    document.getElementById("youtubeSubmission").value = "";
 
     //unhide the stop video button
-    document.getElementById("hide-content-button").style.display = "block";
+    document.getElementById("youtube-hide-content").style.display = "block";
 
     //turn on resizing
     $(function (){
@@ -95,16 +95,16 @@ function submitNewYoutubeLink() {
 }
 
 //hide all elements on the page by destroying them
-function hideEverything() {
+function hideEverythingYoutube() {
     document.getElementById("youtube-draggable-container").remove();
 }
 
 //on click of hide content, hide youtube video
-function hideContent(){
+function hideContentYoutube(){
 
     //hide youtube iframe
     document.getElementById("youtube-iframe-video-container").style.display = "none";
-    document.getElementById("hide-content-button").style.display = "none";
+    document.getElementById("youtube-hide-content").style.display = "none";
 
     //remove src to stop video playback
     document.getElementById("youtube-iframe-video-container").src = "";
@@ -186,7 +186,7 @@ function addCSSStyling(){
     a.indiv-elem:hover {
         text-decoration: none;
     }
-    #vidLink-value {
+    #youtubeSubmission {
         height: 65%;
         width: 80%;
         border: 1px solid black;
@@ -194,7 +194,7 @@ function addCSSStyling(){
         margin-left: 0%;
         font-size: 16px;
     }
-    #submitLink {
+    #submit-link-youtube {
         margin-top: 5px;
         background-color: black;
         color: #FFFAFA;

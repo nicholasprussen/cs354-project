@@ -72,8 +72,8 @@ function createNavigationBar(containerType){
     navigationBar.innerHTML =
                             '<ul>' +
                                 '<li><a class="indiv-elem left-nav-elements ' + containerType + '-li-a">' + formattedName + '</a></li>' +
-                                '<li><a id="hide-everything-button" class="right-nav-elements hover-elem ' + containerType + '-li-a">Close Extension</a></li>' +
-                                '<li><a id="hide-content-button" class="right-nav-elements hover-elem ' + containerType + '-li-a" style="display: none">Close Video</a></li>' +
+                                '<li><a id="hide-everything-' + containerType + '" class="right-nav-elements hover-elem ' + containerType + '-li-a">Close Extension</a></li>' +
+                                '<li><a id="' + containerType + '-hide-content" class="right-nav-elements hover-elem ' + containerType + '-li-a" style="display: none">Close Video</a></li>' +
                             '</ul>';
     return navigationBar;
 }
@@ -87,8 +87,8 @@ function createSearchBar(containerType){
 
     searchBar.innerHTML =
                         '<form id="search-form" onSubmit="return false;">' +
-                            '<input id="vidLink-value" type="text" placeholder="Insert text here..." name="vidLink" />' +
-                            '<input id="submitLink" type="button" value="Submit" />' +
+                            '<input id="' + containerType + 'Submission" type="text" placeholder="Insert text here..." name="vidLink" />' +
+                            '<input id="submit-link-' + containerType + '" type="button" value="Submit" />' +
                         '</form>';
 
     return searchBar;

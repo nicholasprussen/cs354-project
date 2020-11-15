@@ -35,13 +35,13 @@ $(function (){
 
 //add event listeners to all the buttons embedded
 setTimeout(function (){
-  document.getElementById("hide-content-button").addEventListener("click", hideContent);
-  document.getElementById("hide-everything-button").addEventListener("click", hideEverything);
-  document.getElementById("submitLink").addEventListener("click", submitNewtwitchLink);
-  document.getElementById("vidLink-value").addEventListener("keyup", function(event){
+  document.getElementById("twitch-hide-content").addEventListener("click", hideContentTwitch);
+  document.getElementById("hide-everything-twitch").addEventListener("click", hideEverythingTwitch);
+  document.getElementById("submit-link-twitch").addEventListener("click", submitNewtwitchLink);
+  document.getElementById("twitchSubmission").addEventListener("keyup", function(event){
       event.preventDefault();
       if(event.key === "Enter"){
-          document.getElementById("submitLink").click();
+          document.getElementById("submit-link-twitch").click();
       }
   });
 }, 1000);
@@ -56,7 +56,7 @@ function submitNewtwitchLink() {
 
   //Ali's code for twitch implementation
   var domain = document.domain;
-  var inputText = document.getElementById("vidLink-value").value;
+  var inputText = document.getElementById("twitchSubmission").value;
   var embedLink = "https://player.twitch.tv/?channel=" + inputText + "&parent=" + domain;
 
   //this copies the iframe and rebuilds instead of setting source
@@ -82,10 +82,10 @@ function submitNewtwitchLink() {
   document.getElementById("twitch-iframe-container").style.display = "block";
 
   //clear text field
-  document.getElementById("vidLink-value").value = "";
+  document.getElementById("twitchSubmission").value = "";
 
   //unhide the stop video button
-  document.getElementById("hide-content-button").style.display = "block";
+  document.getElementById("twitch-hide-content").style.display = "block";
 
   //turn on resizing
   $(function (){
@@ -94,16 +94,16 @@ function submitNewtwitchLink() {
 }
 
 //hide all elements on the page by destroying them
-function hideEverything() {
+function hideEverythingTwitch() {
   document.getElementById("twitch-draggable-container").remove();
 }
 
 //on click of hide content, hide twitch video
-function hideContent(){
+function hideContentTwitch(){
 
   //hide twitch iframe
   document.getElementById("twitch-iframe-video-container").style.display = "none";
-  document.getElementById("hide-content-button").style.display = "none";
+  document.getElementById("twitch-hide-content").style.display = "none";
 
   //remove src to stop video playback
   document.getElementById("twitch-iframe-video-container").src = "";
@@ -185,7 +185,7 @@ function addCSSStyling(){
   a.indiv-elem:hover {
       text-decoration: none;
   }
-  #vidLink-value {
+  #twitchSubmission {
       height: 65%;
       width: 80%;
       border: 1px solid black;
@@ -193,7 +193,7 @@ function addCSSStyling(){
       margin-left: 0%;
       font-size: 16px;
   }
-  #submitLink {
+  #submit-link-twitch {
       margin-top: 5px;
       background-color: black;
       color: #FFFAFA;
