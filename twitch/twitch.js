@@ -64,6 +64,8 @@ function submitNewtwitchLink() {
   var newiframe = document.createElement("iframe");
   newiframe.id = "twitch-iframe-video-container";
   newiframe.src = embedLink;
+  newiframe.setAttribute('frameborder', '0');
+  newiframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
   var parent = original.parentElement;
   parent.replaceChild(newiframe, original);
 

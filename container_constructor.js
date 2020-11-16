@@ -53,6 +53,12 @@ function createChildContainer(containerType){
         iframeContainer.innerHTML = '<iframe id="' + containerType + '-iframe-video-container" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
         return iframeContainer;
     }
+    else if(containerType === "reddit"){
+        var redditContainer = document.createElement("div");
+        redditContainer.id = containerType + "-iframe-container";
+        redditContainer.innerHTML = "<script id='reddit-script' src='https://redditjs.com/subreddit.js' data-subreddit='all' data-width='640'></script>";
+        return redditContainer;
+    }
 }
 
 //Create navigation bar and format name
@@ -67,6 +73,9 @@ function createNavigationBar(containerType){
         formattedName = "YouTube";
     } else if(containerType === "twitch"){
         formattedName = "Twitch";
+    }
+    else if(containerType === "reddit"){
+        formattedName = "Reddit (Use Browser Back Button to Go Back)";
     }
 
     navigationBar.innerHTML =
@@ -85,9 +94,20 @@ function createSearchBar(containerType){
     var searchBar = document.createElement("div");
     searchBar.id = containerType + "-search-bar";
 
+    var textSubmisssionField = "Insert text here...";
+    if(containerType === "youtube"){
+        textSubmisssionField = "Insert Video URL Here...";
+    }
+    else if(containerType === "twitch"){
+        textSubmisssionField = "Insert Channel Name Here...";
+    }
+    else if(containerType === "reddit"){
+        textSubmisssionField = "Insert Subreddit Name Here...";
+    }
+
     searchBar.innerHTML =
                         '<form id="search-form" onSubmit="return false;">' +
-                            '<input id="' + containerType + 'Submission" type="text" placeholder="Insert text here..." name="vidLink" />' +
+                            '<input id="' + containerType + 'Submission" type="text" placeholder="' + textSubmisssionField + '" name="vidLink" />' +
                             '<input id="submit-link-' + containerType + '" type="button" value="Submit" />' +
                         '</form>';
 
@@ -103,7 +123,12 @@ function createDraggableDiv(containerType){
     draggableDiv.id = containerType + "-draggable-container";
     draggableDiv.className = containerType + "-draggable";
 
-    draggableDiv.style.height = "75px";
+    if(containerType === "reddit"){
+        draggableDiv.style.height = "500px";
+    } else {
+       draggableDiv.style.height = "75px"; 
+    }
+    
     draggableDiv.style.width = "640px";
     draggableDiv.style.position = "fixed";
     draggableDiv.style.display = "block";
