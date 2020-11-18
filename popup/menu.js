@@ -32,8 +32,12 @@ function populateButtons(sites) {
 
                 //Add Click functionality
                 button.addEventListener("click", function() {
-                    chrome.tabs.executeScript({
-                        file: sitesArray[site].value + '/' + sitesArray[site].value + ".js"
+                    sitesArray[site].used = true;
+                    chrome.storage.sync.set({"sites": sitesArray}, function() {
+                        console.log("Using updated", sitesArray);
+                        chrome.tabs.executeScript({
+                            file: sitesArray[site].value + '/' + sitesArray[site].value + ".js"
+                        });
                     });
                 });
 
