@@ -13,7 +13,8 @@ addCSSStyling();
 //functions for adding draggability and resizability to the div
 $(function() {
     $(".youtube-draggable").draggable({
-        iframeFix: true
+        iframeFix: true,
+        containment: 'parent'
     });
 });
 
