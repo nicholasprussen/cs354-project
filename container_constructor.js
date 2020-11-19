@@ -126,9 +126,9 @@ function createDraggableDiv(containerType){
     if(containerType === "reddit"){
         draggableDiv.style.height = "500px";
     } else {
-       draggableDiv.style.height = "75px"; 
+       draggableDiv.style.height = "75px";
     }
-    
+
     draggableDiv.style.width = "640px";
     draggableDiv.style.position = "fixed";
     draggableDiv.style.display = "block";
