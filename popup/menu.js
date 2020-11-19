@@ -2,6 +2,10 @@ function populateButtons(sites) {
     // Set initial menu to sites.json
     var sitesArray = sites["sites"];
 
+    // chrome.storage.sync.clear(function(){
+    //     console.log("Cleared ^-^");
+    // })
+
     // Get updated values from storage if they exist
     chrome.storage.sync.get("sites", function(obj) {
 

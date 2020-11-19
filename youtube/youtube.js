@@ -1,21 +1,17 @@
 ////////////////////////////////////////
 //Run on load
 ////////////////////////////////////////
-function runOnLoad(sites) {
+function runOnLoadYoutube(sites) {
     // Set initial menu to sites.json
     var sitesArray = sites["sites"];
 
     // Get updated values from storage if they exist
     chrome.storage.sync.get("sites", function(obj) {
-        // chrome.storage.sync.clear(function(){
-        //     console.log("Cleared ^-^");
-        // })
         if(obj["sites"] == null) {
             console.log("storage not in place yet");
         } else {
             sitesArray = obj["sites"];
         }
-        console.log(sitesArray);
 
         //Check if page was open
         if(sitesArray[5].used) {
@@ -67,8 +63,6 @@ function runOnLoad(sites) {
                     document.getElementById("submit-link-youtube").click();
                 }
             }, 1000);
-        } else {
-            console.log("Nothing hidden")
         }
     });
 }
@@ -84,7 +78,7 @@ function submitNewYoutubeLink() {
         sitesArray = obj["sites"];
         sitesArray[5].goToLink = inputText;
         chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Link updated", obj, inputText);
+            console.log("YouTube goToLink updated", obj);
 
             //Oscars code for taking youtube link and getting embed link
             pos = inputText.indexOf("watch?v=") + 8;
@@ -138,7 +132,7 @@ function hideEverythingYoutube() {
         sitesArray[5].used = false;
         sitesArray[5].goToLink = "";
         chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Using updated", sitesArray);
+            console.log("Youtube used updated", sitesArray);
         });
     })
 }
@@ -171,7 +165,7 @@ function hideContentYoutube(){
         sitesArray = obj["sites"];
         sitesArray[5].goToLink = "";
         chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Using updated", sitesArray);
+            console.log("YouTube used updated", sitesArray);
         });
     })
 }
@@ -283,7 +277,4 @@ function addCSSStyling(){
 
 fetch(chrome.runtime.getURL("sites.json"))
   .then((response) => response.json())
-  .then((json) => runOnLoad(json));
-
-  // "js": ["jquery/jquery-3.5.1.min.js", "popup/menu.js", "options/options.js", "jquery/jquery-ui.js", "container_constructor.js", "youtube/youtube.js"],
-  // "js": ["clear.js"],
+  .then((json) => runOnLoadYoutube(json));
