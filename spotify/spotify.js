@@ -78,14 +78,17 @@ function submitNewspotifyLink() {
     if(inputText.includes("album")){
         bareSpotifyLink = "https://open.spotify.com/embed/album/";
         splitURl = inputText.substr(31, inputText.length - 1);
+        document.getElementById("spotify-draggable-container").style.height = "400px";
     }
     else if(inputText.includes("playlist")){
         bareSpotifyLink = "https://open.spotify.com/embed/playlist/";
         splitURl = inputText.substr(34, inputText.length - 1);
+        document.getElementById("spotify-draggable-container").style.height = "400px";
     }
     else if(inputText.includes("track")){
         bareSpotifyLink = "https://open.spotify.com/embed/track/";
         splitURl = inputText.substr(31, inputText.length - 1);
+        document.getElementById("spotify-draggable-container").style.height = "155px";
     }
 
     //Compile final link for iframe insertion
@@ -108,7 +111,6 @@ function submitNewspotifyLink() {
     document.getElementById("spotify-nav-menu").style.height = "25px";
 
     //extend the draggable box
-    document.getElementById("spotify-draggable-container").style.height = "155px";
     document.getElementById("spotify-draggable-container").style.width = "500px";
 
     //resize everyone's height
