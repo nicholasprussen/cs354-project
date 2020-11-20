@@ -46,7 +46,7 @@ function runOnLoadReddit(sites) {
                     $('#reddit-iframe-child').css('pointer-events', 'none');
                 },
                 stop: function(event, ui){
-                    $('#reddit-iframe-video-container').css('pointer-events', 'auto');
+                    $('#reddit-iframe-child').css('pointer-events', 'auto');
                 }
                 });
             });
@@ -96,13 +96,6 @@ function submitNewRedditLink() {
             //clear text field
             document.getElementById("redditSubmission").value = "";
 
-            //unhide the stop video button
-            //document.getElementById("reddit-hide-content").style.display = "block";
-
-            //turn on resizing
-            //$(function (){
-            //    $(".reddit-draggable").resizable("enable");
-            //});
         });
     });
 }
@@ -118,7 +111,7 @@ function hideEverythingReddit() {
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("Reddit used updated", sitesArray);
         });
-    })
+    });
 }
 
 //on click of hide content, hide reddit content
@@ -179,12 +172,24 @@ function addCSSStyling(){
         height: 100%;
         width: 100%;
     }
-    ul {
+    .anti-productivity-ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
         overflow: hidden;
         text-decoration: none;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+    #container-label {
+        float: left;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         height: 100%;
     }
     .left-nav-elements {
@@ -193,21 +198,40 @@ function addCSSStyling(){
     .right-nav-elements {
         float: right;
     }
-    li {
+    .anti-productivity-li {
         text-align: center;
-        line-height: 100%;
+        flex: 1 0 auto;
+    }
+    #anti-productivity-center-buttons {
+        margin: 0;
+        flex: 1 0 auto;
     }
     .reddit-li-a {
         display: block;
-        color: #6441a5;
+        color: red;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
-        height: 19.25px;
+        font-size: 13px;
         padding-right: 16px;
         padding-left: 16px;
-        padding-top: 7px;
+        height: 100%;
         text-decoration: none;
         text-align: center;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .reddit-p {
+        display: block;
+        color: red;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        padding-left: 7px;
+        padding-right: 7px;
+        margin: 0;
+        flex: 1 0 auto;
     }
     a.hover-elem:hover {
         background-color: #111;
@@ -265,22 +289,6 @@ function getRedditIframe(){
 
     iframeChild.parentElement.style.height = "100%";
     iframeChild.id = "reddit-iframe-child";
-
-
-    $(function (){
-        $(".reddit-draggable-container").resizable({
-           aspectRatio: 1.28/1, 
-           minHeight: 500,
-           minWidth: 640,
-           iframeFix: true,
-           start: function(event, ui){
-               $('#reddit-iframe-child').css('pointer-events', 'none');
-           },
-           stop: function(event, ui){
-               $('#reddit-iframe-child').css('pointer-events', 'auto');
-           }
-        });
-    });
 
 
     return iframeChild;

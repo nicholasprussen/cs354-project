@@ -17,7 +17,7 @@ function createContainer(containerType){
 
     //this is where the search bar is made
     var searchBar = null;
-    if(containerType === "youtube" || containerType === "twitch" || containerType === "reddit"){
+    if(containerType === "youtube" || containerType === "twitch" || containerType === "reddit" || containerType === "spotify"){
         searchBar = createSearchBar(containerType);
     }
 
@@ -53,11 +53,19 @@ function createChildContainer(containerType){
         iframeContainer.innerHTML = '<iframe id="' + containerType + '-iframe-video-container" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
         return iframeContainer;
     }
+    //this differs since the redditjs api uses this script element to embed an iframe
     else if(containerType === "reddit"){
         var redditContainer = document.createElement("div");
         redditContainer.id = containerType + "-iframe-container";
-        redditContainer.innerHTML = "<script id='reddit-script' src='https://redditjs.com/subreddit.js' data-subreddit='all' data-width='640'></script>";
+        redditContainer.innerHTML = "<script id='reddit-script' src='https://redditjs.com/subreddit.js' data-subreddit='all' data-width='640px'></script>";
         return redditContainer;
+    }
+    //different internal iframe params
+    else if(containerType === "spotify"){
+        var spotifyContainer = document.createElement("div");
+        spotifyContainer.id = containerType + "-iframe-container";
+        spotifyContainer.innerHTML = '<iframe src="" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>';
+        return spotifyContainer;
     }
 }
 
@@ -69,21 +77,35 @@ function createNavigationBar(containerType){
 
     //format name based on container type
     var formattedName = null;
+    var closeButtonText = null;
+
+    //set strings for specific implementations
     if(containerType === "youtube"){
         formattedName = "YouTube";
+        closeButtonText = "Close Video";
     } else if(containerType === "twitch"){
         formattedName = "Twitch";
+        closeButtonText = "Close Stream";
     }
     else if(containerType === "reddit"){
         formattedName = "Reddit (Use Browser Back Button to Go Back)";
     }
+    else if(containerType === "spotify"){
+        formattedName = "Spotify";
+        closeButtonText = "Close Spotify";
+    }
 
+    //construct nav bar html
     navigationBar.innerHTML =
-                            '<ul>' +
-                                '<li><a class="indiv-elem left-nav-elements ' + containerType + '-li-a">' + formattedName + '</a></li>' +
-                                '<li><a id="hide-everything-' + containerType + '" class="right-nav-elements hover-elem ' + containerType + '-li-a">Close Extension</a></li>' +
-                                '<li><a id="' + containerType + '-hide-content" class="right-nav-elements hover-elem ' + containerType + '-li-a" style="display: none">Close Video</a></li>' +
-                            '</ul>';
+                        '<div id="container-label"><p class="' + containerType + '-p">' + formattedName + '</p></div>' +
+                        '<ul class="anti-productivity-ul">' +
+                            '<li class=".anti-productivity-li">' +
+                                '<a id="' + containerType + '-hide-content" class="right-nav-elements hover-elem ' + containerType + '-li-a" style="display: none">' +
+                                    '<p class="anti-productivity-center-buttons">' + closeButtonText + '</p></a></li>' +
+                            '<li class=".anti-productivity-li">' +
+                                '<a id="hide-everything-' + containerType + '" class="right-nav-elements hover-elem ' + containerType + '-li-a">' + 
+                                    '<p class="anti-productivity-center-buttons">Close Extension</p></a></li>' +
+                        '</ul>';
     return navigationBar;
 }
 
@@ -94,6 +116,7 @@ function createSearchBar(containerType){
     var searchBar = document.createElement("div");
     searchBar.id = containerType + "-search-bar";
 
+    //search field placeholders for each one
     var textSubmisssionField = "Insert text here...";
     if(containerType === "youtube"){
         textSubmisssionField = "Insert Video URL Here...";
@@ -104,7 +127,11 @@ function createSearchBar(containerType){
     else if(containerType === "reddit"){
         textSubmisssionField = "Insert Subreddit Name Here...";
     }
+    else if(containerType === "spotify"){
+        textSubmisssionField = "Insert Spotify Playlist/Song/Album URL Here...";
+    }
 
+    //construct html
     searchBar.innerHTML =
                         '<form id="search-form" onSubmit="return false;">' +
                             '<input id="' + containerType + 'Submission" type="text" placeholder="' + textSubmisssionField + '" name="vidLink" />' +
@@ -117,19 +144,28 @@ function createSearchBar(containerType){
 //top level div that holds everything
 function createDraggableDiv(containerType){
 
-
+    //create the div
     var draggableDiv = document.createElement("div");
 
+    //set some vars
     draggableDiv.id = containerType + "-draggable-container";
     draggableDiv.className = containerType + "-draggable";
 
+    //if reddit, will already be expanded
     if(containerType === "reddit"){
         draggableDiv.style.height = "500px";
     } else {
        draggableDiv.style.height = "75px";
     }
+    
+    //if spotify, different aspect
+    if(containerType === "spotify"){
+        draggableDiv.style.width = "500px";
+    } else{
+        draggableDiv.style.width = "640px";
+    }
 
-    draggableDiv.style.width = "640px";
+    //set css for draggable div
     draggableDiv.style.position = "fixed";
     draggableDiv.style.display = "block";
     draggableDiv.style.background = "background-color: rgba(0, 0, 0, 0.75);";
