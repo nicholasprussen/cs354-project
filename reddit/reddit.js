@@ -39,8 +39,8 @@ function runOnLoadReddit(sites) {
             $(function (){
                 $(".reddit-draggable").resizable({
                 aspectRatio: 1.28/1,
-                minHeight: 450,
-                minWidth: 640,
+                minHeight: 300,
+                minWidth: 384,
                 iframeFix: true,
                 start: function(event, ui){
                     $('#reddit-iframe-child').css('pointer-events', 'none');

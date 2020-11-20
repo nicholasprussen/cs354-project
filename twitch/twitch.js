@@ -34,8 +34,8 @@ function runOnLoadTwitch(sites) {
             $(function (){
                 $(".twitch-draggable").resizable({
                 aspectRatio: 1/0.7,
-                minHeight: 450,
-                minWidth: 640,
+                minHeight: 100,
+                minWidth: 142,
                 disabled: "true",
                 iframeFix: true,
                 start: function(event, ui){
