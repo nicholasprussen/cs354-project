@@ -43,6 +43,27 @@ function runOnLoadYoutube(sites) {
                 },
                 stop: function(event, ui){
                     $('#youtube-iframe-video-container').css('pointer-events', 'auto');
+                },
+                resize: function(event, ui){
+                    if(document.getElementById("youtube-draggable-container").clientWidth < 400 && document.getElementById("youtube-draggable-container").clientWidth > 300){
+                        document.getElementById("youtubeSubmission").style.width = "45%";
+                        document.getElementById("youtubeSubmission").style.marginTop = "2px";
+                        document.getElementById("submit-link-youtube").style.width = "45%";
+                        document.getElementById("submit-link-youtube").style.marginTop = "2px";
+                        document.getElementById("youtube-nav-menu").style.height = "6%";
+                        document.getElementById("youtube-search-bar").style.height = "14%";
+                    } else if(document.getElementById("youtube-draggable-container").clientWidth <= 300){
+                        document.getElementById("youtube-nav-menu").style.height = "20%";
+                        document.getElementById("youtube-search-bar").style.height = "0";
+                        
+                    } else if(document.getElementById("youtube-draggable-container").clientWidth >= 400){
+                        document.getElementById("youtubeSubmission").style.width = "80%";
+                        document.getElementById("youtubeSubmission").style.marginTop = "8.5px";
+                        document.getElementById("submit-link-youtube").style.width = "14%";
+                        document.getElementById("submit-link-youtube").style.marginTop = "5px";
+                        document.getElementById("youtube-nav-menu").style.height = "6%";
+                        document.getElementById("youtube-search-bar").style.height = "14%";
+                    }
                 }
                 });
             });
@@ -246,8 +267,8 @@ function addCSSStyling(){
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;
-        padding-right: 16px;
-        padding-left: 16px;
+        padding-right: 7px;
+        padding-left: 7px;
         height: 100%;
         text-decoration: none;
         text-align: center;
@@ -276,7 +297,6 @@ function addCSSStyling(){
         background-color: black;
         color: #FFFAFA;
         margin-left: 2%;
-        padding: 4px 16px;
         border: none;
         cursor: pointer;
         width: 14%;
@@ -285,6 +305,7 @@ function addCSSStyling(){
     #search-form {
         width: 100%;
         height: 100%;
+        text-align: center;
     }
     #youtube-iframe-container {
         width: 100%;
