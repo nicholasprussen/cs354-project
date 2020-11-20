@@ -230,7 +230,7 @@ function addCSSStyling(){
     }
     .twitch-li-a {
         display: block;
-        color: #6441a5;
+        color: #9146FF;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;
@@ -246,7 +246,7 @@ function addCSSStyling(){
     }
     .twitch-p {
         display: block;
-        color: #6441a5;
+        color: #9146FF;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;

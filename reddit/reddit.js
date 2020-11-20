@@ -208,7 +208,7 @@ function addCSSStyling(){
     }
     .reddit-li-a {
         display: block;
-        color: red;
+        color: #FF4500;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;
@@ -224,7 +224,7 @@ function addCSSStyling(){
     }
     .reddit-p {
         display: block;
-        color: red;
+        color: #FF4500;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;

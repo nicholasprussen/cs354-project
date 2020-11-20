@@ -30,7 +30,6 @@ function populateButtons(sites) {
                 //Set image
                 var image = document.createElement("img");
                 image.src = chrome.runtime.getURL("images/" + sitesArray[site].value + "-logo.png");
-                image.style.height = "32px";
                 image.style.width = "32px";
                 button.appendChild(image);
 

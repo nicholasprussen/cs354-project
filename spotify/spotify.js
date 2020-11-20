@@ -218,7 +218,7 @@ function addCSSStyling(){
     }
     .spotify-li-a {
         display: block;
-        color: green;
+        color: #1DB954;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;
@@ -234,7 +234,7 @@ function addCSSStyling(){
     }
     .spotify-p {
         display: block;
-        color: green;
+        color: #1DB954;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;

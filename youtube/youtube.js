@@ -208,7 +208,7 @@ function addCSSStyling(){
     }
     .youtube-p {
         display: block;
-        color: red;
+        color: #FF0000;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;
@@ -242,7 +242,7 @@ function addCSSStyling(){
     }
     .youtube-li-a {
         display: block;
-        color: red;
+        color: #FF0000;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;

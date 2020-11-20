@@ -103,8 +103,8 @@ function createNavigationBar(containerType){
                                 '<a id="' + containerType + '-hide-content" class="right-nav-elements hover-elem ' + containerType + '-li-a" style="display: none">' +
                                     '<p class="anti-productivity-center-buttons">' + closeButtonText + '</p></a></li>' +
                             '<li class=".anti-productivity-li">' +
-                                '<a id="hide-everything-' + containerType + '" class="right-nav-elements hover-elem ' + containerType + '-li-a">' + 
-                                    '<p class="anti-productivity-center-buttons">Close Extension</p></a></li>' +
+                                '<a id="hide-everything-' + containerType + '" class="right-nav-elements hover-elem ' + containerType + '-li-a">' +
+                                    '<p class="' + containerType + '-li-a" anti-productivity-center-buttons">Close Extension</p></a></li>' +
                         '</ul>';
     return navigationBar;
 }
