@@ -27,7 +27,8 @@ function runOnLoadSpotify(sites) {
             //functions for adding draggability and resizability to the div
             $(function() {
                 $(".spotify-draggable").draggable({
-                    iframeFix: true
+                    iframeFix: true,
+                    containment: 'parent'
                 });
             });
 

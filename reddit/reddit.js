@@ -32,7 +32,8 @@ function runOnLoadReddit(sites) {
             //functions for adding draggability and resizability to the div
             $(function() {
                 $(".reddit-draggable").draggable({
-                    iframeFix: true
+                    iframeFix: true,
+                    containment: 'parent'
                 });
             });
 

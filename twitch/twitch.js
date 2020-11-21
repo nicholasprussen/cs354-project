@@ -27,7 +27,8 @@ function runOnLoadTwitch(sites) {
             //functions for adding draggability and resizability to the div
             $(function() {
                 $(".twitch-draggable").draggable({
-                    iframeFix: true
+                    iframeFix: true,
+                    containment: 'parent'
                 });
             });
 
