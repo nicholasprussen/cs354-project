@@ -2,6 +2,10 @@ function populateButtons(sites) {
     // Set initial menu to sites.json
     var sitesArray = sites["sites"];
 
+    // chrome.storage.sync.clear(function(){
+    //     console.log("Cleared ^-^");
+    // })
+
     // Get updated values from storage if they exist
     chrome.storage.sync.get("sites", function(obj) {
 
@@ -26,14 +30,17 @@ function populateButtons(sites) {
                 //Set image
                 var image = document.createElement("img");
                 image.src = chrome.runtime.getURL("images/" + sitesArray[site].value + "-logo.png");
-                image.style.height = "32px";
                 image.style.width = "32px";
                 button.appendChild(image);
 
                 //Add Click functionality
                 button.addEventListener("click", function() {
-                    chrome.tabs.executeScript({
-                        file: sitesArray[site].value + '/' + sitesArray[site].value + ".js"
+                    sitesArray[site].used = true;
+                    chrome.storage.sync.set({"sites": sitesArray}, function() {
+                        console.log("Using updated", sitesArray);
+                        chrome.tabs.executeScript({
+                            file: sitesArray[site].value + '/' + sitesArray[site].value + ".js"
+                        });
                     });
                 });
 
