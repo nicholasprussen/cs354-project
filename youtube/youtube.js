@@ -14,7 +14,7 @@ function runOnLoadYoutube(sites) {
         }
 
         //Check if page was open
-        if(sitesArray[5].used) {
+        if(sitesArray[4].used) {
 
             $(function() {
                 mainDiv = createContainer("youtube");
@@ -22,7 +22,7 @@ function runOnLoadYoutube(sites) {
                 $("body").append(mainDiv);
             });
 
-            addCSSStyling();
+            addCSSStylingYouTube();
 
             //functions for adding draggability and resizability to the div
             $(function() {
@@ -43,6 +43,26 @@ function runOnLoadYoutube(sites) {
                 },
                 stop: function(event, ui){
                     $('#youtube-iframe-video-container').css('pointer-events', 'auto');
+                },
+                resize: function(event, ui){
+                    if(document.getElementById("youtube-draggable-container").clientWidth < 400 && document.getElementById("youtube-draggable-container").clientWidth > 300){
+                        document.getElementById("youtubeSubmission").style.width = "45%";
+                        document.getElementById("youtubeSubmission").style.marginTop = "2px";
+                        document.getElementById("submit-link-youtube").style.width = "45%";
+                        document.getElementById("submit-link-youtube").style.marginTop = "2px";
+                        document.getElementById("youtube-nav-menu").style.height = "6%";
+                        document.getElementById("youtube-search-bar").style.height = "14%";
+                    } else if(document.getElementById("youtube-draggable-container").clientWidth <= 300){
+                        document.getElementById("youtube-nav-menu").style.height = "20%";
+                        document.getElementById("youtube-search-bar").style.height = "0";
+                    } else if(document.getElementById("youtube-draggable-container").clientWidth >= 400){
+                        document.getElementById("youtubeSubmission").style.width = "80%";
+                        document.getElementById("youtubeSubmission").style.marginTop = "8.5px";
+                        document.getElementById("submit-link-youtube").style.width = "14%";
+                        document.getElementById("submit-link-youtube").style.marginTop = "5px";
+                        document.getElementById("youtube-nav-menu").style.height = "6%";
+                        document.getElementById("youtube-search-bar").style.height = "14%";
+                    }
                 }
                 });
             });
@@ -58,8 +78,8 @@ function runOnLoadYoutube(sites) {
                         document.getElementById("submit-link-youtube").click();
                     }
                 });
-                if(sitesArray[5].goToLink != ""){
-                    document.getElementById("youtubeSubmission").value = sitesArray[5].goToLink;
+                if(sitesArray[4].goToLink != ""){
+                    document.getElementById("youtubeSubmission").value = sitesArray[4].goToLink;
                     document.getElementById("submit-link-youtube").click();
                 }
             }, 1000);
@@ -76,7 +96,7 @@ function submitNewYoutubeLink() {
     var inputText = document.getElementById("youtubeSubmission").value;
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[5].goToLink = inputText;
+        sitesArray[4].goToLink = inputText;
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("YouTube goToLink updated", obj);
 
@@ -129,8 +149,8 @@ function hideEverythingYoutube() {
     document.getElementById("youtube-draggable-container").remove();
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[5].used = false;
-        sitesArray[5].goToLink = "";
+        sitesArray[4].used = false;
+        sitesArray[4].goToLink = "";
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("Youtube used updated", sitesArray);
         });
@@ -163,14 +183,14 @@ function hideContentYoutube(){
 
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[5].goToLink = "";
+        sitesArray[4].goToLink = "";
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("YouTube used updated", sitesArray);
         });
     })
 }
 
-function addCSSStyling(){
+function addCSSStylingYouTube(){
     //////////////////////////////////////////
     //CSS Styling
     //////////////////////////////////////////
@@ -240,14 +260,18 @@ function addCSSStyling(){
         margin: 0;
         flex: 1 0 auto;
     }
+    #anti-productivity-center-buttons {
+        margin: 0;
+        flex: 1 0 auto;
+    }
     .youtube-li-a {
         display: block;
         color: #FF0000;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;
-        padding-right: 16px;
-        padding-left: 16px;
+        padding-right: 7px;
+        padding-left: 7px;
         height: 100%;
         text-decoration: none;
         text-align: center;
@@ -276,7 +300,6 @@ function addCSSStyling(){
         background-color: black;
         color: #FFFAFA;
         margin-left: 2%;
-        padding: 4px 16px;
         border: none;
         cursor: pointer;
         width: 14%;
@@ -285,6 +308,7 @@ function addCSSStyling(){
     #search-form {
         width: 100%;
         height: 100%;
+        text-align: center;
     }
     #youtube-iframe-container {
         width: 100%;

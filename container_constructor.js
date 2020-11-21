@@ -67,6 +67,7 @@ function createChildContainer(containerType){
         spotifyContainer.innerHTML = '<iframe src="" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>';
         return spotifyContainer;
     }
+}
 
     //different internal iframe params
     else if(containerType === "twitter"){
@@ -85,27 +86,17 @@ function createNavigationBar(containerType){
 
     //format name based on container type
     var formattedName = null;
-    var closeButtonText = null;
+    var minIconName = null;
+    var closeIconName = null;
 
     //set strings for specific implementations
     if(containerType === "youtube"){
         formattedName = "YouTube";
-        closeButtonText = "Close Video";
-    } else if(containerType === "twitch"){
-        formattedName = "Twitch";
-        closeButtonText = "Close Stream";
+    } else {
+        formattedName = containerType.charAt(0).toUpperCase() + containerType.slice(1);
     }
-    else if(containerType === "reddit"){
-        formattedName = "Reddit (Use Browser Back Button to Go Back)";
-    }
-    else if(containerType === "spotify"){
-        formattedName = "Spotify";
-        closeButtonText = "Close Spotify";
-    }
-    else if(containerType === "twitter"){
-        formattedName = "Twitter";
-        closeButtonText = "Close Twitter";
-    }
+    minIconName = chrome.runtime.getURL("images/" + containerType + "-minimize-icon.png");
+    closeIconName = chrome.runtime.getURL("images/" + containerType + "-close-icon.png");
 
     //construct nav bar html
     navigationBar.innerHTML =
@@ -113,10 +104,10 @@ function createNavigationBar(containerType){
                         '<ul class="anti-productivity-ul">' +
                             '<li class=".anti-productivity-li">' +
                                 '<a id="' + containerType + '-hide-content" class="right-nav-elements hover-elem ' + containerType + '-li-a" style="display: none">' +
-                                    '<p class="anti-productivity-center-buttons">' + closeButtonText + '</p></a></li>' +
+                                    '<img id="' + containerType +'-minimize-button-img" class="anti-productivity-center-buttons" src="' + minIconName + '"></img></a></li>' +
                             '<li class=".anti-productivity-li">' +
                                 '<a id="hide-everything-' + containerType + '" class="right-nav-elements hover-elem ' + containerType + '-li-a">' +
-                                    '<p class="' + containerType + '-li-a" anti-productivity-center-buttons">Close Extension</p></a></li>' +
+                                '<img class="anti-productivity-center-buttons" src="' + closeIconName + '"></img></a></li>' +
                         '</ul>';
     return navigationBar;
 }
