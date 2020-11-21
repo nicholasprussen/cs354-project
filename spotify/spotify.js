@@ -1,141 +1,177 @@
 ////////////////////////////////////////
 //Run on load
 ////////////////////////////////////////
+function runOnLoadSpotify(sites) {
+    // Set initial menu to sites.json
+    var sitesArray = sites["sites"];
 
-$(function() {
-    mainDiv = createContainer("spotify");
-    //append entire div to website
-    $("body").append(mainDiv);
-});
+    // Get updated values from storage if they exist
+    chrome.storage.sync.get("sites", function(obj) {
+        if(obj["sites"] == null) {
+            console.log("storage not in place yet");
+        } else {
+            sitesArray = obj["sites"];
+        }
 
-addCSSStyling();
+        //Check if page was open
+        if(sitesArray[1].used) {
 
-//functions for adding draggability and resizability to the div
-$(function() {
-    $(".spotify-draggable").draggable({
-        iframeFix: true
-    });
-});
+            $(function() {
+                mainDiv = createContainer("spotify");
+                //append entire div to website
+                $("body").append(mainDiv);
+            });
 
-$(function (){
-    $(".spotify-draggable").resizable({
-       minHeight: 155,
-       minWidth: 500,
-       disabled: "true",
-       iframeFix: true,
-       start: function(event, ui){
-           $('#spotify-iframe-container').css('pointer-events', 'none');
-       },
-       stop: function(event, ui){
-           $('#spotify-iframe-container').css('pointer-events', 'auto');
-       }
-    });
-});
+            addCSSStylingSpotify();
 
-//add event listeners to all the buttons embedded
-setTimeout(function (){
-    document.getElementById("spotify-hide-content").addEventListener("click", hideContentspotify);
-    document.getElementById("hide-everything-spotify").addEventListener("click", hideEverythingspotify);
-    document.getElementById("submit-link-spotify").addEventListener("click", submitNewspotifyLink);
-    // document.getElementById("spotify-album-submit").addEventListener("click", switchToAlbumSubmission);
+            //functions for adding draggability and resizability to the div
+            $(function() {
+                $(".spotify-draggable").draggable({
+                    iframeFix: true
+                });
+            });
+
+            $(function (){
+                $(".spotify-draggable").resizable({
+                   minHeight: 155,
+                   minWidth: 500,
+                   disabled: "true",
+                   iframeFix: true,
+                   start: function(event, ui){
+                       $('#spotify-iframe-container').css('pointer-events', 'none');
+                   },
+                   stop: function(event, ui){
+                       $('#spotify-iframe-container').css('pointer-events', 'auto');
+                   }
+                });
+            });
+
+            //add event listeners to all the buttons embedded
+            setTimeout(function (){
+                document.getElementById("spotify-hide-content").addEventListener("click", hideContentSpotify);
+                document.getElementById("hide-everything-spotify").addEventListener("click", hideEverythingSpotify);
+                document.getElementById("submit-link-spotify").addEventListener("click", submitNewSpotifyLink);
+                // document.getElementById("spotify-album-submit").addEventListener("click", switchToAlbumSubmission);
     // document.getElementById("spotify-playlist-submit").addEventListener("click", switchToPlaylistSubmission);
     // document.getElementById("spotify-song-submit").addEventListener("click", switchToSongSubmission);
-    document.getElementById("spotifySubmission").addEventListener("keyup", function(event){
-        event.preventDefault();
-        if(event.key === "Enter"){
-            document.getElementById("submit-link-spotify").click();
+                document.getElementById("spotifySubmission").addEventListener("keyup", function(event){
+                    event.preventDefault();
+                    if(event.key === "Enter"){
+                        document.getElementById("submit-link-spotify").click();
+                    }
+                });
+                if(sitesArray[1].goToLink != ""){
+                    document.getElementById("spotifySubmission").value = sitesArray[1].goToLink;
+                    document.getElementById("submit-link-spotify").click();
+                }
+            }, 1000);
         }
     });
-}, 1000);
-
+}
 
 //////////////////////////////////////////
 //Functions
 //////////////////////////////////////////
 
 //on submission click, get new embed link and display iframe
-function submitNewspotifyLink() {
-
-    //this takes links from either spotify native app or web app and manipulates it
-
-    //storage vars
-    var embedLink = null;
-    var splitURl;
-    var objID = null;
-    var bareSpotifyLink = null;
-
-    //get link
+function submitNewSpotifyLink() {
     var inputText = document.getElementById("spotifySubmission").value;
+    chrome.storage.sync.get("sites", function(obj) {
+        sitesArray = obj["sites"];
+        sitesArray[1].goToLink = inputText;
+        chrome.storage.sync.set({"sites": sitesArray}, function() {
+            console.log("Spotify goToLink updated", obj);
 
-    //split by question mark if link is from desktop app
-    if(inputText.includes("?")){
-        cutDownLink = inputText.split("?");
-        inputText = cutDownLink[0];
-        console.log("found ?:" + inputText);
-    }
+            //this takes links from either spotify native app or web app and manipulates it
 
-    //check what type of link and construct link
-    if(inputText.includes("album")){
-        bareSpotifyLink = "https://open.spotify.com/embed/album/";
-        splitURl = inputText.substr(31, inputText.length - 1);
-        document.getElementById("spotify-draggable-container").style.height = "400px";
-    }
-    else if(inputText.includes("playlist")){
-        bareSpotifyLink = "https://open.spotify.com/embed/playlist/";
-        splitURl = inputText.substr(34, inputText.length - 1);
-        document.getElementById("spotify-draggable-container").style.height = "400px";
-    }
-    else if(inputText.includes("track")){
-        bareSpotifyLink = "https://open.spotify.com/embed/track/";
-        splitURl = inputText.substr(31, inputText.length - 1);
-        document.getElementById("spotify-draggable-container").style.height = "155px";
-    }
+            //storage vars
+            var embedLink = null;
+            var splitURl;
+            var objID = null;
+            var bareSpotifyLink = null;
 
-    //Compile final link for iframe insertion
-    embedLink = bareSpotifyLink + splitURl;
+            //get link
+            var inputText = document.getElementById("spotifySubmission").value;
 
-    //this copies the iframe and rebuilds instead of setting source
-    var original = document.getElementById("spotify-iframe-container");
-    var newiframe = document.createElement("iframe");
-    newiframe.id = "spotify-iframe-container";
-    newiframe.src = embedLink;
-    newiframe.setAttribute('frameborder', '0');
-    newiframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-    var parent = original.parentElement;
-    parent.replaceChild(newiframe, original);
+            //split by question mark if link is from desktop app
+            if(inputText.includes("?")){
+                cutDownLink = inputText.split("?");
+                inputText = cutDownLink[0];
+                console.log("found ?:" + inputText);
+            }
 
-    //unhide iframe
-    document.getElementById("spotify-iframe-container").style.display = "block";
+            //check what type of link and construct link
+            if(inputText.includes("album")){
+                bareSpotifyLink = "https://open.spotify.com/embed/album/";
+                splitURl = inputText.substr(31, inputText.length - 1);
+                document.getElementById("spotify-draggable-container").style.height = "400px";
+            }
+            else if(inputText.includes("playlist")){
+                bareSpotifyLink = "https://open.spotify.com/embed/playlist/";
+                splitURl = inputText.substr(34, inputText.length - 1);
+                document.getElementById("spotify-draggable-container").style.height = "400px";
+            }
+            else if(inputText.includes("track")){
+                bareSpotifyLink = "https://open.spotify.com/embed/track/";
+                splitURl = inputText.substr(31, inputText.length - 1);
+                document.getElementById("spotify-draggable-container").style.height = "155px";
+            }
 
-    //move button container down and make content button visible
-    document.getElementById("spotify-nav-menu").style.height = "25px";
+            //Compile final link for iframe insertion
+            embedLink = bareSpotifyLink + splitURl;
 
-    //extend the draggable box
-    document.getElementById("spotify-draggable-container").style.width = "500px";
+            //this copies the iframe and rebuilds instead of setting source
+            var original = document.getElementById("spotify-iframe-container");
+            var newiframe = document.createElement("iframe");
+            newiframe.id = "spotify-iframe-container";
+            newiframe.src = embedLink;
+            newiframe.setAttribute('frameborder', '0');
+            newiframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            var parent = original.parentElement;
+            parent.replaceChild(newiframe, original);
 
-    //resize everyone's height
-    document.getElementById("spotify-search-bar").style.height = "50px";
-    document.getElementById("spotify-iframe-container").style.display = "block";
+            //unhide iframe
+            document.getElementById("spotify-iframe-container").style.display = "block";
 
-    //clear text field
-    document.getElementById("spotifySubmission").value = "";
+            //move button container down and make content button visible
+            document.getElementById("spotify-nav-menu").style.height = "25px";
 
-    //unhide the stop video button
-    document.getElementById("spotify-hide-content").style.display = "flex";
+            //extend the draggable box
+            document.getElementById("spotify-draggable-container").style.width = "500px";
 
-    //turn on resizing
-    $(function (){
-        $(".spotify-draggable").resizable("enable");
+            //resize everyone's height
+            document.getElementById("spotify-search-bar").style.height = "50px";
+            document.getElementById("spotify-iframe-container").style.display = "block";
+
+            //clear text field
+            document.getElementById("spotifySubmission").value = "";
+
+            //unhide the stop video button
+            document.getElementById("spotify-hide-content").style.display = "flex";
+
+            //turn on resizing
+            $(function (){
+                $(".spotify-draggable").resizable("enable");
+            });
+        });
     });
 }
 
 //hide all elements on the page by destroying them
-function hideEverythingspotify() {
+function hideEverythingSpotify() {
     document.getElementById("spotify-draggable-container").remove();
+    chrome.storage.sync.get("sites", function(obj) {
+        sitesArray = obj["sites"];
+        sitesArray[1].used = false;
+        sitesArray[1].goToLink = "";
+        chrome.storage.sync.set({"sites": sitesArray}, function() {
+            console.log("Spotify used updated", sitesArray);
+        });
+    })
 }
 
-//on click of hide content, hide spotify video
-function hideContentspotify(){
+//on click of hide content, hide spotify content
+function hideContentSpotify(){
 
     //hide spotify iframe
     document.getElementById("spotify-iframe-container").style.display = "none";
@@ -157,9 +193,17 @@ function hideContentspotify(){
     $(function (){
         $(".spotify-draggable").resizable("disable");
     });
+
+    chrome.storage.sync.get("sites", function(obj) {
+        sitesArray = obj["sites"];
+        sitesArray[1].goToLink = "";
+        chrome.storage.sync.set({"sites": sitesArray}, function() {
+            console.log("Spotify used updated", sitesArray);
+        });
+    })
 }
 
-function addCSSStyling(){
+function addCSSStylingSpotify(){
     //////////////////////////////////////////
     //CSS Styling
     //////////////////////////////////////////
@@ -297,3 +341,7 @@ function addCSSStyling(){
     // add it to the head
     head.appendChild(style);
 }
+
+fetch(chrome.runtime.getURL("sites.json"))
+  .then((response) => response.json())
+  .then((json) => runOnLoadSpotify(json));

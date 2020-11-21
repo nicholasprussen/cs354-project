@@ -14,7 +14,7 @@ function runOnLoadTwitch(sites) {
         };
 
         //Check if page was open
-        if(sitesArray[4].used) {
+        if(sitesArray[3].used) {
 
             $(function() {
                 mainDiv = createContainer("twitch");
@@ -79,8 +79,8 @@ function runOnLoadTwitch(sites) {
                         document.getElementById("submit-link-twitch").click();
                     }
                 });
-                if(sitesArray[4].goToLink != ""){
-                    document.getElementById("twitchSubmission").value = sitesArray[4].goToLink;
+                if(sitesArray[3].goToLink != ""){
+                    document.getElementById("twitchSubmission").value = sitesArray[3].goToLink;
                     document.getElementById("submit-link-twitch").click();
                 }
             }, 1000);
@@ -97,7 +97,7 @@ function submitNewTwitchLink() {
     var inputText = document.getElementById("twitchSubmission").value;
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[4].goToLink = inputText;
+        sitesArray[3].goToLink = inputText;
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("Twitch goToLink updated", obj, inputText);
 
@@ -149,8 +149,8 @@ function hideEverythingTwitch() {
     document.getElementById("twitch-draggable-container").remove();
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[4].used = false;
-        sitesArray[4].goToLink = "";
+        sitesArray[3].used = false;
+        sitesArray[3].goToLink = "";
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("Twitch used updated", sitesArray);
         });
@@ -183,7 +183,7 @@ function hideContentTwitch(){
 
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[4].goToLink = "";
+        sitesArray[3].goToLink = "";
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("Twitch used updated", sitesArray);
         });

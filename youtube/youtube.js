@@ -14,7 +14,7 @@ function runOnLoadYoutube(sites) {
         }
 
         //Check if page was open
-        if(sitesArray[5].used) {
+        if(sitesArray[4].used) {
 
             $(function() {
                 mainDiv = createContainer("youtube");
@@ -79,8 +79,8 @@ function runOnLoadYoutube(sites) {
                         document.getElementById("submit-link-youtube").click();
                     }
                 });
-                if(sitesArray[5].goToLink != ""){
-                    document.getElementById("youtubeSubmission").value = sitesArray[5].goToLink;
+                if(sitesArray[4].goToLink != ""){
+                    document.getElementById("youtubeSubmission").value = sitesArray[4].goToLink;
                     document.getElementById("submit-link-youtube").click();
                 }
             }, 1000);
@@ -97,7 +97,7 @@ function submitNewYoutubeLink() {
     var inputText = document.getElementById("youtubeSubmission").value;
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[5].goToLink = inputText;
+        sitesArray[4].goToLink = inputText;
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("YouTube goToLink updated", obj);
 
@@ -150,8 +150,8 @@ function hideEverythingYoutube() {
     document.getElementById("youtube-draggable-container").remove();
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[5].used = false;
-        sitesArray[5].goToLink = "";
+        sitesArray[4].used = false;
+        sitesArray[4].goToLink = "";
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("Youtube used updated", sitesArray);
         });
@@ -184,7 +184,7 @@ function hideContentYoutube(){
 
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[5].goToLink = "";
+        sitesArray[4].goToLink = "";
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("YouTube used updated", sitesArray);
         });
