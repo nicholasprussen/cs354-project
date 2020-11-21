@@ -197,7 +197,7 @@ function addCSSStyling(){
     }
     .twitter-li-a {
         display: block;
-        color: #1DB4B9;
+        color: #1DA1F2;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;
@@ -213,7 +213,7 @@ function addCSSStyling(){
     }
     .twitter-p {
         display: block;
-        color: #1DB4B9;
+        color: #1DA1F2;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;
