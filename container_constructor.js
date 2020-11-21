@@ -67,7 +67,6 @@ function createChildContainer(containerType){
         spotifyContainer.innerHTML = '<iframe src="" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>';
         return spotifyContainer;
     }
-}
 
     //different internal iframe params
     else if(containerType === "twitter"){
