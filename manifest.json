@@ -12,7 +12,8 @@
             "youtube/youtube.js",
             "twitch/twitch.js",
             "reddit/reddit.js",
-            "spotify/spotify.js"],
+            "spotify/spotify.js",
+            "background.js"],
         "persistent": false
     },
     "browser_action": {
@@ -42,7 +43,8 @@
                 "youtube/youtube.js",
                 "twitch/twitch.js",
                 "reddit/reddit.js",
-                "spotify/spotify.js"],
+                "spotify/spotify.js",
+                "background.js"],
             "css": ["jquery/jquery-ui.css"]
         }
     ],
