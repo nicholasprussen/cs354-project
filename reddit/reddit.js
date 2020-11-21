@@ -27,7 +27,7 @@ function runOnLoadReddit(sites) {
                 $("body").append(mainDiv);
             });
 
-            addCSSStyling();
+            addCSSStylingReddit();
 
             //functions for adding draggability and resizability to the div
             $(function() {
@@ -147,7 +147,7 @@ function hideContentReddit(){
     })
 }
 
-function addCSSStyling(){
+function addCSSStylingReddit(){
     //////////////////////////////////////////
     //CSS Styling
     //////////////////////////////////////////

@@ -22,7 +22,7 @@ function runOnLoadTwitch(sites) {
                 $("body").append(mainDiv);
             });
 
-            addCSSStyling();
+            addCSSStylingTwitch();
 
             //functions for adding draggability and resizability to the div
             $(function() {
@@ -190,7 +190,7 @@ function hideContentTwitch(){
     })
 }
 
-function addCSSStyling(){
+function addCSSStylingTwitch(){
     //////////////////////////////////////////
     //CSS Styling
     //////////////////////////////////////////

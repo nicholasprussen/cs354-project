@@ -22,7 +22,7 @@ function runOnLoadYoutube(sites) {
                 $("body").append(mainDiv);
             });
 
-            addCSSStyling();
+            addCSSStylingYouTube();
 
             //functions for adding draggability and resizability to the div
             $(function() {
@@ -191,7 +191,7 @@ function hideContentYoutube(){
     })
 }
 
-function addCSSStyling(){
+function addCSSStylingYouTube(){
     //////////////////////////////////////////
     //CSS Styling
     //////////////////////////////////////////
