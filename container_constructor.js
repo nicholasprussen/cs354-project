@@ -17,7 +17,7 @@ function createContainer(containerType){
 
     //this is where the search bar is made
     var searchBar = null;
-    if(containerType === "youtube" || containerType === "twitch" || containerType === "reddit" || containerType === "spotify"){
+    if(containerType === "youtube" || containerType === "twitch" || containerType === "reddit" || containerType === "spotify" || containerType === "twitter"){
         searchBar = createSearchBar(containerType);
     }
 
@@ -66,6 +66,15 @@ function createChildContainer(containerType){
         spotifyContainer.id = containerType + "-iframe-container";
         spotifyContainer.innerHTML = '<iframe src="" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>';
         return spotifyContainer;
+    }
+}
+
+    //different internal iframe params
+    else if(containerType === "twitter"){
+        var twitterContainer = document.createElement("div");
+        twitterContainer.id = containerType + "-iframe-container";
+        twitterContainer.innerHTML = '<iframe id="' + containerType + '-iframe-video-container" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        return twitterContainer;
     }
 }
 
@@ -123,6 +132,9 @@ function createSearchBar(containerType){
     }
     else if(containerType === "spotify"){
         textSubmisssionField = "Insert Spotify Playlist/Song/Album URL Here...";
+    }
+    else if(containerType === "twitter"){
+        textSubmisssionField = "Insert Twitter @ Here...";
     }
 
     //construct html

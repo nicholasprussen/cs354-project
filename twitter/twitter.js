@@ -57,7 +57,10 @@ function submitNewtwitterLink() {
 
     //get link
     var inputText = document.getElementById("twitterSubmission").value;
-    var embedLink = "https://twitter.com/" + inputText
+    var embedLink = "https://www.twitter.com/" + inputText
+
+    // var domain = document.domain;
+    // var embedLink = "https://twitter.com/" + inputText + "&parent=" + domain;
 
     // twttr.widgets.createTimeline(
     //     {
