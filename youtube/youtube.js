@@ -24,12 +24,13 @@ function runOnLoadYoutube(sites) {
 
             addCSSStylingYouTube();
 
-            //functions for adding draggability and resizability to the div
-            $(function() {
-                $(".youtube-draggable").draggable({
-                    iframeFix: true
-                });
-            });
+//functions for adding draggability and resizability to the div
+$(function() {
+    $(".youtube-draggable").draggable({
+        iframeFix: true,
+        containment: 'parent'
+    });
+});
 
             $(function (){
                 $(".youtube-draggable").resizable({
