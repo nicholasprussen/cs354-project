@@ -1,10 +1,9 @@
 {
     "sites": [
-        { "value": "googlenews", "name": "Google News", "hidden": true},
-        { "value": "reddit", "name": "Reddit", "hidden": true},
-        { "value": "spotify", "name": "Spotify", "hidden": true},
-        { "value": "twitter", "name": "Twitter", "hidden": true},
-        { "value": "twitch", "name": "Twitch", "hidden": false},
-        { "value": "youtube", "name": "YouTube", "hidden": false}
+        { "value": "reddit", "name": "Reddit", "hidden": false, "used":false, "goToLink":""},
+        { "value": "spotify", "name": "Spotify", "hidden": false, "used":false, "goToLink":""},
+        { "value": "twitter", "name": "Twitter", "hidden": true, "used":false, "goToLink":""},
+        { "value": "twitch", "name": "Twitch", "hidden": false, "used":false, "goToLink":""},
+        { "value": "youtube", "name": "YouTube", "hidden": false, "used":false, "goToLink":""}
     ]
 }

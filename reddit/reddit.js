@@ -17,7 +17,7 @@ function runOnLoadReddit(sites) {
         }
 
         //Check if page was open
-        if(sitesArray[1].used) {
+        if(sitesArray[0].used) {
 
             var currentSubreddit = "all";
 
@@ -27,7 +27,7 @@ function runOnLoadReddit(sites) {
                 $("body").append(mainDiv);
             });
 
-            addCSSStyling();
+            addCSSStylingReddit();
 
             //functions for adding draggability and resizability to the div
             $(function() {
@@ -62,8 +62,8 @@ function runOnLoadReddit(sites) {
                         document.getElementById("submit-link-reddit").click();
                     }
                 });
-                if(sitesArray[1].goToLink != ""){
-                    document.getElementById("redditSubmission").value = sitesArray[1].goToLink;
+                if(sitesArray[0].goToLink != ""){
+                    document.getElementById("redditSubmission").value = sitesArray[0].goToLink;
                     document.getElementById("submit-link-reddit").click();
                 }
                 getRedditIframe();
@@ -81,7 +81,7 @@ function submitNewRedditLink() {
     var inputText = document.getElementById("redditSubmission").value;
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[1].goToLink = inputText;
+        sitesArray[0].goToLink = inputText;
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("Reddit goToLink updated", obj);
             var iframeChild = getRedditIframe();
@@ -106,8 +106,8 @@ function hideEverythingReddit() {
     document.getElementById("reddit-draggable-container").remove();
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[1].used = false;
-        sitesArray[1].goToLink = "";
+        sitesArray[0].used = false;
+        sitesArray[0].goToLink = "";
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("Reddit used updated", sitesArray);
         });
@@ -140,14 +140,14 @@ function hideContentReddit(){
 
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
-        sitesArray[1].goToLink = "";
+        sitesArray[0].goToLink = "";
         chrome.storage.sync.set({"sites": sitesArray}, function() {
             console.log("Reddit used updated", sitesArray);
         });
     })
 }
 
-function addCSSStyling(){
+function addCSSStylingReddit(){
     //////////////////////////////////////////
     //CSS Styling
     //////////////////////////////////////////

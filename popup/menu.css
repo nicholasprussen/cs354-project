@@ -4,8 +4,7 @@
    }
    .dropdown{
     position:relative;
-    display:inline-block;
-    text-align:center;
+    display:block;
    }
    .menu{
     padding:10px 40px;
@@ -13,6 +12,14 @@
    }
    .button{
     padding:10px 10px;
-    font-size:10px;
+    width: 64px;
+    height: 64px;
     margin: 1%;
+    background-color: white;
+    border: none;
+    transition-duration: .4s;
+    transition-timing-function: ease-out;
+   }
+   .button:hover{
+       background-color: lightgray;
    }
