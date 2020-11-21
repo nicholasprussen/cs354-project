@@ -55,7 +55,6 @@ function runOnLoadTwitch(sites) {
                     } else if(document.getElementById("twitch-draggable-container").clientWidth <= 300){
                         document.getElementById("twitch-nav-menu").style.height = "20%";
                         document.getElementById("twitch-search-bar").style.height = "0";
-                        
                     } else if(document.getElementById("twitch-draggable-container").clientWidth >= 400){
                         document.getElementById("twitchSubmission").style.width = "80%";
                         document.getElementById("twitchSubmission").style.marginTop = "8.5px";

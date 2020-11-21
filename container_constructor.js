@@ -83,23 +83,11 @@ function createNavigationBar(containerType){
     //set strings for specific implementations
     if(containerType === "youtube"){
         formattedName = "YouTube";
-        minIconName = chrome.runtime.getURL("images/red-minimize-icon.png");
-        closeIconName = chrome.runtime.getURL("images/red-close-icon.png");
-    } else if(containerType === "twitch"){
-        formattedName = "Twitch";
-        minIconName = chrome.runtime.getURL("images/purple-minimize-icon.png");
-        closeIconName = chrome.runtime.getURL("images/purple-close-icon.png");
+    } else {
+        formattedName = containerType.charAt(0).toUpperCase() + containerType.slice(1);
     }
-    else if(containerType === "reddit"){
-        formattedName = "Reddit (Use Browser Back Button to Go Back)";
-        minIconName = chrome.runtime.getURL("images/red-minimize-icon.png");
-        closeIconName = chrome.runtime.getURL("images/red-close-icon.png");
-    }
-    else if(containerType === "spotify"){
-        formattedName = "Spotify";
-        minIconName = chrome.runtime.getURL("images/green-minimize-icon.png");
-        closeIconName = chrome.runtime.getURL("images/green-close-icon.png");
-    }
+    minIconName = chrome.runtime.getURL("images/" + containerType + "-minimize-icon.png");
+    closeIconName = chrome.runtime.getURL("images/" + containerType + "-close-icon.png");
 
     //construct nav bar html
     navigationBar.innerHTML =
