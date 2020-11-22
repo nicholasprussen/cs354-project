@@ -2,14 +2,13 @@
 //Run on load
 ////////////////////////////////////////
 function runOnLoadYoutube(sites) {
+
     // Set initial menu to sites.json
     var sitesArray = sites["sites"];
 
     // Get updated values from storage if they exist
     chrome.storage.sync.get("sites", function(obj) {
-        if(obj["sites"] == null) {
-            console.log("storage not in place yet");
-        } else {
+        if(obj["sites"] != null) {
             sitesArray = obj["sites"];
         }
 
@@ -24,13 +23,13 @@ function runOnLoadYoutube(sites) {
 
             addCSSStylingYouTube();
 
-//functions for adding draggability and resizability to the div
-$(function() {
-    $(".youtube-draggable").draggable({
-        iframeFix: true,
-        containment: 'parent'
-    });
-});
+            //functions for adding draggability and resizability to the div
+            $(function() {
+                $(".youtube-draggable").draggable({
+                    iframeFix: true,
+                    containment: 'parent'
+                });
+            });
 
             $(function (){
                 $(".youtube-draggable").resizable({
@@ -99,7 +98,6 @@ function submitNewYoutubeLink() {
         sitesArray = obj["sites"];
         sitesArray[4].goToLink = inputText;
         chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("YouTube goToLink updated", obj);
 
             //Oscars code for taking youtube link and getting embed link
             pos = inputText.indexOf("watch?v=") + 8;
@@ -152,9 +150,7 @@ function hideEverythingYoutube() {
         sitesArray = obj["sites"];
         sitesArray[4].used = false;
         sitesArray[4].goToLink = "";
-        chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Youtube used updated", sitesArray);
-        });
+        chrome.storage.sync.set({"sites": sitesArray}, function() {});
     })
 }
 
@@ -185,9 +181,7 @@ function hideContentYoutube(){
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
         sitesArray[4].goToLink = "";
-        chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("YouTube used updated", sitesArray);
-        });
+        chrome.storage.sync.set({"sites": sitesArray}, function() {});
     })
 }
 

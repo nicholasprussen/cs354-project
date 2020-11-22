@@ -7,9 +7,7 @@ function constructOptions(sites) {
     chrome.storage.sync.get("sites", function(obj) {
 
         // Check if sites has been set in storage
-        if(obj["sites"] == null) {
-            console.log("storage not in place yet");
-        } else {
+        if(obj["sites"] != null) {
             sitesArray = obj["sites"];
         }
 
@@ -31,18 +29,14 @@ function constructOptions(sites) {
             // Add click functionality
             checkbox.addEventListener('click', function() {
                 sitesArray[site].hidden = !sitesArray[site].hidden;
-                chrome.storage.sync.set({"sites": sitesArray}, function() {
-                    console.log("Settings saved", sitesArray);
-                });
+                chrome.storage.sync.set({"sites": sitesArray}, function() {});
             });
             try {
                 page = document.getElementById('site_checkboxes');
                 page.appendChild(checkbox);
                 page.appendChild(label);
                 page.appendChild(br);
-            } catch (error) {
-                console.log("extension not yet loaded.");
-            }
+            } catch (error) {}
         }
     });
 }
