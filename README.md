@@ -27,6 +27,16 @@ Find the directory where you saved the extracted ZIP file and load that folder
 In Google Chrome, click the puzzle piece icon in the top right corner, and click the pin icon next to "The Ultimate Anti-Productivity Tool"
 
 ### The Extension is now active on your google chrome. 
-If you are a beta tester, follow this link to the related survey: Put link here
+If you are a beta tester, follow this link to the related survey: https://forms.gle/oU7ZaXDCVbryp8N76
+
+## Known Issues/Bugs
+Doesn't work while watching a video on YouTube
+If you drag it all the way down on a scrollable website it causes issues
+Not locked to boundaries of the page when resizing
+
+## Future Features
+Twitter implementation
+Additional Options
+Tooltips on how to get YouTube and Spotify links
 
 ## Version 0.1 BETA
