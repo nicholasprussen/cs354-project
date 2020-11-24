@@ -27,7 +27,7 @@ Find the directory where you saved the extracted ZIP file and load that folder
 In Google Chrome, click the puzzle piece icon in the top right corner, and click the pin icon next to "The Ultimate Anti-Productivity Tool"
 
 ### The Extension is now active on your google chrome. 
-If you are a beta tester, follow this link to the related survey: https://forms.gle/oU7ZaXDCVbryp8N76
+If you are a beta tester, follow this link to the related survey: https://forms.gle/45R95cetiWs2kVit9
 
 ## Known Issues/Bugs
 Doesn't work while watching a video on YouTube
