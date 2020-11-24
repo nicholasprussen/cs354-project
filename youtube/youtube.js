@@ -254,9 +254,9 @@ function addCSSStylingYouTube(){
     }
     .anti-productivity-li {
         text-align: center;
-        flex 1 0 auto;
+        flex: 1 0 auto;
     }
-    #anti-productivity-center-buttons {
+    .anti-productivity-center-buttons {
         margin: 0;
         flex: 1 0 auto;
     }

@@ -1,118 +1,150 @@
-///////////////////////////////////////
+////////////////////////////////////////
 //Run on load
 ////////////////////////////////////////
+function runOnLoadTwitter(sites) {
+    // Set initial menu to sites.json
+    var sitesArray = sites["sites"];
 
-$(function() {
-    mainDiv = createContainer("twitter");
-    //append entire div to website
-    $("body").append(mainDiv);
-});
+    // Get updated values from storage if they exist
+    chrome.storage.sync.get("sites", function(obj) {
+        if(obj["sites"] == null) {
+            console.log("storage not in place yet");
+        } else {
+            sitesArray = obj["sites"];
+        }
 
-addCSSStyling();
+        //Check if page was open
+        if(sitesArray[2].used) {
 
-//functions for adding draggability and resizability to the div
-$(function() {
-    $(".twitter-draggable").draggable({
-        iframeFix: true
-    });
-});
+            $(function() {
+                mainDiv = createContainer("twitter");
+                //append entire div to website
+                $("body").append(mainDiv);
+            });
 
-$(function (){
-    $(".twitter-draggable").resizable({
-       minHeight: 155,
-       minWidth: 500,
-       disabled: "true",
-       iframeFix: true,
-       start: function(event, ui){
-           $('#twitter-iframe-container').css('pointer-events', 'none');
-       },
-       stop: function(event, ui){
-           $('#twitter-iframe-container').css('pointer-events', 'auto');
-       }
-    });
-});
+            addCSSStylingTwitter();
 
-//add event listeners to all the buttons embedded
-setTimeout(function (){
-    document.getElementById("twitter-hide-content").addEventListener("click", hideContenttwitter);
-    document.getElementById("hide-everything-twitter").addEventListener("click", hideEverythingtwitter);
-    document.getElementById("submit-link-twitter").addEventListener("click", submitNewtwitterLink);
-    document.getElementById("twitterSubmission").addEventListener("keyup", function(event){
-        event.preventDefault();
-        if(event.key === "Enter"){
-            document.getElementById("submit-link-twitter").click();
+            //functions for adding draggability and resizability to the div
+            $(function() {
+                $(".twitter-draggable").draggable({
+                    iframeFix: true
+                });
+            });
+
+            $(function (){
+                $(".twitter-draggable").resizable({
+                    minHeight: 155,
+                    minWidth: 500,
+                    disabled: "true",
+                    iframeFix: true,
+                    start: function(event, ui){
+                        $('#twitter-iframe-container').css('pointer-events', 'none');
+                    },
+                    stop: function(event, ui){
+                        $('#twitter-iframe-container').css('pointer-events', 'auto');
+                    }
+                });
+            });
+
+            //add event listeners to all the buttons embedded
+            setTimeout(function (){
+                document.getElementById("twitter-hide-content").addEventListener("click", hideContentTwitter);
+                document.getElementById("hide-everything-twitter").addEventListener("click", hideEverythingTwitter);
+                document.getElementById("submit-link-twitter").addEventListener("click", submitNewTwitterLink);
+                document.getElementById("twitterSubmission").addEventListener("keyup", function(event){
+                    event.preventDefault();
+                    if(event.key === "Enter"){
+                        document.getElementById("submit-link-twitter").click();
+                    }
+                });
+                if(sitesArray[2].goToLink != ""){
+                    document.getElementById("twitterSubmission").value = sitesArray[2].goToLink;
+                    document.getElementById("submit-link-twitter").click();
+                }
+            }, 1000);
         }
     });
-}, 1000);
-
+}
 
 //////////////////////////////////////////
 //Functions
 //////////////////////////////////////////
 
 //on submission click, get new embed link and display iframe
-function submitNewtwitterLink() {
-
-    //taking link from twitter profile to create embedded timeline
-
-    //get link
+function submitNewTwitterLink() {
     var inputText = document.getElementById("twitterSubmission").value;
-    var embedLink = "https://www.twitter.com/" + inputText
+    chrome.storage.sync.get("sites", function(obj) {
+        sitesArray = obj["sites"];
+        sitesArray[2].goToLink = inputText;
+        chrome.storage.sync.set({"sites": sitesArray}, function() {
+            //taking link from twitter profile to create embedded timeline
 
-    // var domain = document.domain;
-    // var embedLink = "https://twitter.com/" + inputText + "&parent=" + domain;
+            //get link
+            var embedLink = "https://www.twitter.com/" + inputText
+            console.log(sitesArray, embedLink);
 
-    // twttr.widgets.createTimeline(
-    //     {
-    //       sourceType: "profile",
-    //       screenName: "TwitterDev"
-    //     },
-    //     document.getElementById("container")
-    //   );
+            // twttr.widgets.createTimeline(
+            //     {
+            //       sourceType: "profile",
+            //       screenName: "TwitterDev"
+            //     },
+            //     document.getElementById("container")
+            //   );
 
-    //this copies the iframe and rebuilds instead of setting source
-    var original = document.getElementById("twitter-iframe-container");
-    var newiframe = document.createElement("iframe");
-    newiframe.id = "twitter-iframe-container";
-    newiframe.src = embedLink;
-    newiframe.setAttribute('frameborder', '0');
-    newiframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-    var parent = original.parentElement;
-    parent.replaceChild(newiframe, original);
+            //this copies the iframe and rebuilds instead of setting source
+            var original = document.getElementById("twitter-iframe-container");
+            var newiframe = document.createElement("iframe");
+            newiframe.id = "twitter-iframe-container";
+            newiframe.src = embedLink;
+            newiframe.setAttribute('frameborder', '0');
+            newiframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            var parent = original.parentElement;
+            parent.replaceChild(newiframe, original);
 
-    //unhide iframe
-    document.getElementById("twitter-iframe-container").style.display = "block";
+            //unhide iframe
+            document.getElementById("twitter-iframe-container").style.display = "block";
 
-    //move button container down and make content button visible
-    document.getElementById("twitter-nav-menu").style.height = "25px";
+            //move button container down and make content button visible
+            document.getElementById("twitter-nav-menu").style.height = "25px";
 
-    //extend the draggable box
-    document.getElementById("twitter-draggable-container").style.height = "155px";
-    document.getElementById("twitter-draggable-container").style.width = "500px";
+            //extend the draggable box
+            document.getElementById("twitter-draggable-container").style.height = "155px";
+            document.getElementById("twitter-draggable-container").style.width = "500px";
 
-    //resize everyone's height
-    document.getElementById("twitter-search-bar").style.height = "50px";
-    document.getElementById("twitter-iframe-container").style.display = "block";
+            //resize everyone's height
+            document.getElementById("twitter-search-bar").style.height = "50px";
+            document.getElementById("twitter-iframe-container").style.display = "block";
 
-    //clear text field
-    document.getElementById("twitterSubmission").value = "";
+            //clear text field
+            document.getElementById("twitterSubmission").value = "";
 
-    //unhide the stop video button
-    document.getElementById("twitter-hide-content").style.display = "flex";
+            //unhide the stop video button
+            document.getElementById("twitter-hide-content").style.display = "flex";
 
-    //turn on resizing
-    $(function (){
-        $(".twitter-draggable").resizable("enable");
+            //turn on resizing
+            $(function (){
+                $(".twitter-draggable").resizable("enable");
+            });
+        });
     });
 }
 
 //hide all elements on the page by destroying them
-function hideEverythingtwitter() {
+function hideEverythingTwitter() {
+    link = document.getElementById("twitterSubmission").value;
     document.getElementById("twitter-draggable-container").remove();
+    chrome.storage.sync.get("sites", function(obj) {
+        sitesArray = obj["sites"];
+        sitesArray[2].used = false;
+        sitesArray[2].goToLink = "";
+        chrome.storage.sync.set({"sites": sitesArray}, function() {
+            console.log(sitesArray);
+        });
+    });
 }
 
-//on click of hide content, hide twitter video
-function hideContenttwitter(){
+//on click of hide content, hide twitter feed
+function hideContentTwitter(){
 
     //hide twitter iframe
     document.getElementById("twitter-iframe-container").style.display = "none";
@@ -134,9 +166,17 @@ function hideContenttwitter(){
     $(function (){
         $(".twitter-draggable").resizable("disable");
     });
+
+    chrome.storage.sync.get("sites", function(obj) {
+        sitesArray = obj["sites"];
+        sitesArray[2].goToLink = "";
+        chrome.storage.sync.set({"sites": sitesArray}, function() {
+            console.log(sitesArray);
+        });
+    })
 }
 
-function addCSSStyling(){
+function addCSSStylingTwitter(){
     //////////////////////////////////////////
     //CSS Styling
     //////////////////////////////////////////
@@ -273,5 +313,8 @@ function addCSSStyling(){
     }
     // add it to the head
     head.appendChild(style);
-
 }
+
+fetch(chrome.runtime.getURL("sites.json"))
+  .then((response) => response.json())
+  .then((json) => runOnLoadTwitter(json));
