@@ -37,11 +37,17 @@ function runOnLoadTwitter(sites) {
                     minWidth: 500,
                     disabled: "true",
                     iframeFix: true,
+                    maxWidth: 1200,
+                    maxHeight: 2000,
                     start: function(event, ui){
                         $('#twitter-iframe-container').css('pointer-events', 'none');
                     },
                     stop: function(event, ui){
                         $('#twitter-iframe-container').css('pointer-events', 'auto');
+                    },
+                    resize: function(event, ui){
+                        var draggableWidth = document.getElementById("twitter-draggable-container").clientWidth;
+                        $('.twitter-timeline').css({width: (draggableWidth - 2)});
                     }
                 });
             });
@@ -77,29 +83,38 @@ function submitNewTwitterLink() {
         sitesArray = obj["sites"];
         sitesArray[2].goToLink = inputText;
         chrome.storage.sync.set({"sites": sitesArray}, function() {
+            
             //taking link from twitter profile to create embedded timeline
+            //link for a element
+            var embedLink = "https://twitter.com/" + inputText
 
-            //get link
-            var embedLink = "https://www.twitter.com/" + inputText
-            console.log(sitesArray, embedLink);
+            //rebuild div to eliminate old timeline and initiate new one
+            var originalTwitterDiv = document.getElementById("twitter-iframe-container");
+            var newTwitterDiv = document.createElement("div");
+            newTwitterDiv.id = "twitter-iframe-container";
 
-            // twttr.widgets.createTimeline(
-            //     {
-            //       sourceType: "profile",
-            //       screenName: "TwitterDev"
-            //     },
-            //     document.getElementById("container")
-            //   );
+            //build a for new timeline
+            newTwitterDiv.innerHTML = '<a class="twitter-timeline" data-width="500" data-height="500" href="' + embedLink + '"> Tweets by ' + inputText + '</a>';
 
-            //this copies the iframe and rebuilds instead of setting source
-            var original = document.getElementById("twitter-iframe-container");
-            var newiframe = document.createElement("iframe");
-            newiframe.id = "twitter-iframe-container";
-            newiframe.src = embedLink;
-            newiframe.setAttribute('frameborder', '0');
-            newiframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-            var parent = original.parentElement;
-            parent.replaceChild(newiframe, original);
+            //replace old div
+            var parent = originalTwitterDiv.parentElement;
+            parent.replaceChild(newTwitterDiv, originalTwitterDiv);
+
+            //inject script to run twttr command and rebuild widget
+            var runTwtterScript = "twttr.widgets.load(document.getElementById('twitter-iframe-container'));";
+            var script = document.createElement("script");
+            script.id = "twitter-build-script";
+            script.innerHTML = runTwtterScript;
+            document.head.appendChild(script);
+
+            //wait a half second and add a border to tell size
+            setTimeout( function () {
+                $('.twitter-timeline').css({width: '498', height: '100%'});
+                $('.twitter-timeline-rendered').css({border: '1px solid black'});
+                // if(document.getElementById("twitter-widget-0")){
+                //     document.getElementById("twitter-widget-0").style.border = "1px solid black";
+                // }
+            }, 1000);
 
             //unhide iframe
             document.getElementById("twitter-iframe-container").style.display = "block";
@@ -108,7 +123,7 @@ function submitNewTwitterLink() {
             document.getElementById("twitter-nav-menu").style.height = "25px";
 
             //extend the draggable box
-            document.getElementById("twitter-draggable-container").style.height = "155px";
+            document.getElementById("twitter-draggable-container").style.height = "575px";
             document.getElementById("twitter-draggable-container").style.width = "500px";
 
             //resize everyone's height

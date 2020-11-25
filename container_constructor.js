@@ -72,7 +72,7 @@ function createChildContainer(containerType){
     else if(containerType === "twitter"){
         var twitterContainer = document.createElement("div");
         twitterContainer.id = containerType + "-iframe-container";
-        twitterContainer.innerHTML = '<iframe id="' + containerType + '-iframe-video-container" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        twitterContainer.innerHTML = '<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>';
         return twitterContainer;
     }
 }
@@ -164,7 +164,7 @@ function createDraggableDiv(containerType){
     }
     
     //if spotify, different aspect
-    if(containerType === "spotify"){
+    if(containerType === "spotify" || containerType === "twitter"){
         draggableDiv.style.width = "500px";
     } else{
         draggableDiv.style.width = "640px";
