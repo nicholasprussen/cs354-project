@@ -29,6 +29,19 @@ In Google Chrome, click the puzzle piece icon in the top right corner, and click
 ### The Extension is now active on your google chrome. 
 If you are a beta tester, follow this link to the related survey: https://forms.gle/45R95cetiWs2kVit9
 
+### Notes
+- The extension has issues on some websites, Google.com consistently works as expected and is a good site for testing feature.
+
+### Usage
+- The 'X' icon on the top right of window closes the extension completely.
+- The minimize icon on the top right of the window closes open content in the extension. 
+- The options page can be reached by right-clicking on the extension icon in chrome and selecting options. Preferences are automatically saved upon any change. 
+- To use the YouTube implementation, submit the link to the video.
+- To use the Twitch implementation, submit the channel name.
+- To use the Reddit implementation, submit the subreddit name with no 'r/'
+- To use the Spotify implementation, submit the song/album/playlist link from Spotify.
+- To use the Twitter implementation, submit the twitter handle of a individual's profile. 
+
 ## Known Issues/Bugs
 - While on some websites (ex. Google Forms), pressing enter in the search bar of the extension caused another function not related to the extension (ie. reload page or open in new tab).
 - Some websites block the reddit content.
@@ -45,5 +58,6 @@ If you are a beta tester, follow this link to the related survey: https://forms.
 - A submit button to the options page that makes it more clear to users that their changes have been saved
 - A gear icon in the popup menu that directs to the options page
 - A 'r/' in front of text for the Reddit implementation
+- Extension loads when activeTab changes
 
 ## Version 0.1 BETA
