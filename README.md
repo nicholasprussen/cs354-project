@@ -30,13 +30,20 @@ In Google Chrome, click the puzzle piece icon in the top right corner, and click
 If you are a beta tester, follow this link to the related survey: https://forms.gle/45R95cetiWs2kVit9
 
 ## Known Issues/Bugs
-Doesn't work while watching a video on YouTube
-If you drag it all the way down on a scrollable website it causes issues
-Not locked to boundaries of the page when resizing
+- While on some websites (ex. Google Forms), pressing enter in the search bar of the extension caused another function not related to the extension (ie. reload page or open in new tab).
+- Some websites block the reddit content.
+- Some websites cause the window to close upon interaction.
+- If you right click a link and choose 'Copy link address' it is a different link than simply copying the link, and is an invalid link for the extension. 
+- When resizing and moving, the window was very large and couldn't be moved down even though there was some space in the page.
+- If an empty string is submitted to the Spotify implementation, a google drive window is brought up.
 
 ## Future Features
-Twitter implementation
-Additional Options
-Tooltips on how to get YouTube and Spotify links
+- Implementing more commonly used sites such as Instagram, Wikipedia, translation sites (ie. Google Translate), various emails, and Amazon.
+- Update close content icon.
+- The Spotify implementation improved to use the Spotify API to search for songs, albums and playlists rather than needing a related URL. 
+- Resizing is possible from all sides of the window, not just the bottom and right side.
+- A submit button to the options page that makes it more clear to users that their changes have been saved
+- A gear icon in the popup menu that directs to the options page
+- A 'r/' in front of text for the Reddit implementation
 
 ## Version 0.1 BETA
