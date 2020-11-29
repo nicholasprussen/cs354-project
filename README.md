@@ -41,6 +41,7 @@ If you are a beta tester, follow this link to the related survey: https://forms.
 - To use the Reddit implementation, submit the subreddit name with no 'r/'
 - To use the Spotify implementation, submit the song/album/playlist link from Spotify.
 - To use the Twitter implementation, submit the twitter handle of a individual's profile. 
+- Example Usage video can be found here: https://youtu.be/zCVuD05EgmI
 
 ## Known Issues/Bugs
 - While on some websites (ex. Google Forms), pressing enter in the search bar of the extension caused another function not related to the extension (ie. reload page or open in new tab).
