@@ -46,6 +46,7 @@ function createMainContainer(containerType){
 
 //specific implementations for all different container types
 function createChildContainer(containerType){
+
     //youtube and twitch use the same implementation
     if(containerType === "youtube" || containerType === "twitch"){
         var iframeContainer = document.createElement("div");
@@ -79,6 +80,7 @@ function createChildContainer(containerType){
 
 //Create navigation bar and format name
 function createNavigationBar(containerType){
+
     //create div with unique name
     var navigationBar = document.createElement("div");
     navigationBar.id = containerType + "-nav-menu";
@@ -162,7 +164,7 @@ function createDraggableDiv(containerType){
     } else {
        draggableDiv.style.height = "75px";
     }
-    
+
     //if spotify, different aspect
     if(containerType === "spotify" || containerType === "twitter"){
         draggableDiv.style.width = "500px";

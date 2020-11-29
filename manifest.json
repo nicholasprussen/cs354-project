@@ -1,6 +1,6 @@
 {
     "name": "The Ultimate Anti-Productivity Tool",
-    "version": "1.0",
+    "version": "0.1",
     "description": "CS 354 Project",
     "permissions": ["activeTab", "declarativeContent", "storage", "tabs"],
     "background": {

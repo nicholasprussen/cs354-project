@@ -10,9 +10,7 @@ function runOnLoadReddit(sites) {
 
     // Get updated values from storage if they exist
     chrome.storage.sync.get("sites", function(obj) {
-        if(obj["sites"] == null) {
-            console.log("storage not in place yet");
-        } else {
+        if(obj["sites"] != null) {
             sitesArray = obj["sites"];
         }
 
@@ -84,7 +82,6 @@ function submitNewRedditLink() {
         sitesArray = obj["sites"];
         sitesArray[0].goToLink = inputText;
         chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Reddit goToLink updated", obj);
             var iframeChild = getRedditIframe();
             var copyOfSource = iframeChild.src;
 
@@ -109,9 +106,7 @@ function hideEverythingReddit() {
         sitesArray = obj["sites"];
         sitesArray[0].used = false;
         sitesArray[0].goToLink = "";
-        chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Reddit used updated", sitesArray);
-        });
+        chrome.storage.sync.set({"sites": sitesArray}, function() {});
     });
 }
 
@@ -142,9 +137,7 @@ function hideContentReddit(){
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
         sitesArray[0].goToLink = "";
-        chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Reddit used updated", sitesArray);
-        });
+        chrome.storage.sync.set({"sites": sitesArray}, function() {});
     })
 }
 

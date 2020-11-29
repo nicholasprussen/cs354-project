@@ -2,14 +2,13 @@
 //Run on load
 ////////////////////////////////////////
 function runOnLoadSpotify(sites) {
+
     // Set initial menu to sites.json
     var sitesArray = sites["sites"];
 
     // Get updated values from storage if they exist
     chrome.storage.sync.get("sites", function(obj) {
-        if(obj["sites"] == null) {
-            console.log("storage not in place yet");
-        } else {
+        if(obj["sites"] != null) {
             sitesArray = obj["sites"];
         }
 
@@ -52,9 +51,6 @@ function runOnLoadSpotify(sites) {
                 document.getElementById("spotify-hide-content").addEventListener("click", hideContentSpotify);
                 document.getElementById("hide-everything-spotify").addEventListener("click", hideEverythingSpotify);
                 document.getElementById("submit-link-spotify").addEventListener("click", submitNewSpotifyLink);
-                // document.getElementById("spotify-album-submit").addEventListener("click", switchToAlbumSubmission);
-    // document.getElementById("spotify-playlist-submit").addEventListener("click", switchToPlaylistSubmission);
-    // document.getElementById("spotify-song-submit").addEventListener("click", switchToSongSubmission);
                 document.getElementById("spotifySubmission").addEventListener("keyup", function(event){
                     event.preventDefault();
                     if(event.key === "Enter"){
@@ -76,19 +72,19 @@ function runOnLoadSpotify(sites) {
 
 //on submission click, get new embed link and display iframe
 function submitNewSpotifyLink() {
+
     var inputText = document.getElementById("spotifySubmission").value;
     chrome.storage.sync.get("sites", function(obj) {
+
         sitesArray = obj["sites"];
         sitesArray[1].goToLink = inputText;
         chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Spotify goToLink updated", obj);
 
             //this takes links from either spotify native app or web app and manipulates it
 
             //storage vars
             var embedLink = null;
             var splitURl;
-            var objID = null;
             var bareSpotifyLink = null;
 
             //get link
@@ -98,7 +94,6 @@ function submitNewSpotifyLink() {
             if(inputText.includes("?")){
                 cutDownLink = inputText.split("?");
                 inputText = cutDownLink[0];
-                console.log("found ?:" + inputText);
             }
 
             //check what type of link and construct link
@@ -165,9 +160,7 @@ function hideEverythingSpotify() {
         sitesArray = obj["sites"];
         sitesArray[1].used = false;
         sitesArray[1].goToLink = "";
-        chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Spotify used updated", sitesArray);
-        });
+        chrome.storage.sync.set({"sites": sitesArray}, function() {});
     })
 }
 
@@ -198,9 +191,7 @@ function hideContentSpotify(){
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
         sitesArray[1].goToLink = "";
-        chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Spotify used updated", sitesArray);
-        });
+        chrome.storage.sync.set({"sites": sitesArray}, function() {});
     })
 }
 

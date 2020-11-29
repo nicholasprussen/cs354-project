@@ -7,9 +7,7 @@ function runOnLoadTwitch(sites) {
 
     // Get updated values from storage if they exist
     chrome.storage.sync.get("sites", function(obj) {
-        if(obj["sites"] == null) {
-            console.log("storage not in place yet");
-        } else {
+        if(obj["sites"] != null) {
             sitesArray = obj["sites"];
         };
 
@@ -99,7 +97,6 @@ function submitNewTwitchLink() {
         sitesArray = obj["sites"];
         sitesArray[3].goToLink = inputText;
         chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Twitch goToLink updated", obj, inputText);
 
             //Ali's code for twitch implementation
             var domain = document.domain;
@@ -151,9 +148,7 @@ function hideEverythingTwitch() {
         sitesArray = obj["sites"];
         sitesArray[3].used = false;
         sitesArray[3].goToLink = "";
-        chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Twitch used updated", sitesArray);
-        });
+        chrome.storage.sync.set({"sites": sitesArray}, function() {});
     })
 }
 
@@ -184,9 +179,7 @@ function hideContentTwitch(){
     chrome.storage.sync.get("sites", function(obj) {
         sitesArray = obj["sites"];
         sitesArray[3].goToLink = "";
-        chrome.storage.sync.set({"sites": sitesArray}, function() {
-            console.log("Twitch used updated", sitesArray);
-        });
+        chrome.storage.sync.set({"sites": sitesArray}, function() {});
     })
 }
 
